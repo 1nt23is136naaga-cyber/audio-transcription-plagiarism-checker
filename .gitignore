@@ -1,0 +1,18 @@
+# Python
+backend/venv/
+backend/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment secrets — NEVER commit these
+backend/.env
+.env
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Test / scratch scripts
+backend/test_plag.py
