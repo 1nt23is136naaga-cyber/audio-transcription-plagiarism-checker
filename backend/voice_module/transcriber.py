@@ -1,60 +1,86 @@
 """
-transcriber.py — Whisper-based audio transcription for the voice_module.
-Uses OpenAI Whisper API (whisper-1). Reads OPENAI_API_KEY from environment.
+transcriber.py — Deepgram-based audio transcription for the voice_module.
+Uses Deepgram Nova-2 model. Reads DEEPGRAM_API_KEY from environment.
+Falls back gracefully with a clear error if the key is missing.
 """
 
-import io
 import logging
 import os
 
-from openai import OpenAI
+from deepgram import DeepgramClient, PrerecordedOptions
 
 logger = logging.getLogger(__name__)
 
 
-def _client() -> OpenAI:
-    api_key = os.getenv("OPENAI_API_KEY")
+def _client() -> DeepgramClient:
+    api_key = os.getenv("DEEPGRAM_API_KEY")
     if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is not set in environment")
-    return OpenAI(api_key=api_key)
+        raise RuntimeError("DEEPGRAM_API_KEY is not set in environment")
+    return DeepgramClient(api_key)
 
 
 async def transcribe_audio(audio_bytes: bytes, filename: str = "recording.webm") -> str:
     """
-    Transcribe raw audio bytes using OpenAI Whisper (whisper-1).
+    Transcribe raw audio bytes using Deepgram Nova-2.
 
     Args:
         audio_bytes: Raw audio data from the uploaded file.
-        filename:    Original filename — used to hint the file format to Whisper.
+        filename:    Original filename — used to detect MIME type.
 
     Returns:
         Clean, stripped transcription string.
 
     Raises:
         RuntimeError: On API failure or empty key.
+        ValueError:   If audio_bytes is empty.
     """
     if not audio_bytes:
         raise ValueError("audio_bytes must not be empty")
 
     client = _client()
-    file_obj = io.BytesIO(audio_bytes)
-    file_obj.name = filename  # Whisper uses this to detect codec
+
+    # Detect MIME type from filename extension
+    ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else "webm"
+    mime_map = {
+        "webm": "audio/webm",
+        "mp3":  "audio/mpeg",
+        "wav":  "audio/wav",
+        "m4a":  "audio/mp4",
+        "ogg":  "audio/ogg",
+        "flac": "audio/flac",
+    }
+    mimetype = mime_map.get(ext, "audio/webm")
 
     logger.info(
-        "[voice_module] Transcribing %.1f KB via Whisper (file=%s)...",
+        "[voice_module] Transcribing %.1f KB via Deepgram Nova-2 (file=%s, mime=%s)...",
         len(audio_bytes) / 1024,
         filename,
+        mimetype,
+    )
+
+    payload = {"buffer": audio_bytes, "mimetype": mimetype}
+
+    options = PrerecordedOptions(
+        model="nova-2",
+        language="en",
+        smart_format=True,
+        punctuate=True,
+        utterances=False,
     )
 
     try:
-        response = client.audio.transcriptions.create(
-            model="whisper-1",
-            file=file_obj,
-        )
+        response = client.listen.prerecorded.v("1").transcribe_file(payload, options)
     except Exception as exc:
-        logger.exception("[voice_module] Whisper API error")
-        raise RuntimeError(f"Whisper transcription failed: {exc}") from exc
+        logger.exception("[voice_module] Deepgram API error")
+        raise RuntimeError(f"Deepgram transcription failed: {exc}") from exc
 
-    text = (response.text or "").strip()
+    try:
+        text = (
+            response["results"]["channels"][0]["alternatives"][0]["transcript"] or ""
+        ).strip()
+    except (KeyError, IndexError, TypeError) as exc:
+        logger.error("[voice_module] Unexpected Deepgram response structure: %s", response)
+        raise RuntimeError(f"Could not parse Deepgram response: {exc}") from exc
+
     logger.info("[voice_module] Transcription done — %d chars", len(text))
     return text

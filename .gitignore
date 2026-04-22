@@ -1,18 +1,42 @@
-# Python
-backend/venv/
-backend/__pycache__/
+# ── Python ─────────────────────────────────────────────────────────────────────
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+pip-wheel-metadata/
 
-# Environment secrets — NEVER commit these
-backend/.env
+# ── Environment & secrets — NEVER commit ───────────────────────────────────────
 .env
+backend/.env
+*.env.local
 
-# OS artefacts
+# ── Runtime data (generated at runtime, not source) ────────────────────────────
+backend/voice_data.json
+backend/test_results.json
+
+# ── OS artefacts ───────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Test / scratch scripts
-backend/test_plag.py
+# ── IDE / editor ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ───────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Node (if any tooling added later) ──────────────────────────────────────────
+node_modules/

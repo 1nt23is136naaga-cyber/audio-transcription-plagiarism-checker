@@ -10,6 +10,11 @@ Run:
 The existing `uvicorn main:app` command will also still work (without voice routes).
 """
 
+# ── Load .env FIRST — use absolute path so it works regardless of CWD ─────────
+from pathlib import Path as _Path
+from dotenv import load_dotenv as _load_dotenv
+_load_dotenv(_Path(__file__).parent / ".env", override=True)
+
 from pathlib import Path
 
 from fastapi.staticfiles import StaticFiles
@@ -30,3 +35,10 @@ FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 def serve_interview():
     from fastapi.responses import FileResponse
     return FileResponse(FRONTEND_DIR / "interview.html")
+
+
+@app.get("/text-test", include_in_schema=False)
+def serve_text_test():
+    from fastapi.responses import FileResponse
+    return FileResponse(FRONTEND_DIR / "text_test.html")
+
