@@ -142,9 +142,13 @@ async def check_ai_content(text: str) -> dict:
             return {"score": None, "error": f"AI Detect error {r.status_code}: {r.text[:200]}"}
 
         body = r.json()
-        # Winston returns probability of HUMAN. We convert to probability of AI for easier UX (0-100%).
-        human_score = float(body.get("score", 1.0))
-        ai_score = (1.0 - human_score) * 100.0
+        # Winston AI returns `score` as human-probability.
+        # The value may be 0-1 (fractional) or 0-100 (percentage) depending on version.
+        # We normalise to 0-100 and invert to get the AI probability.
+        raw = float(body.get("score", 1.0))
+        # If score > 1, it is already on a 0-100 scale
+        human_pct = raw if raw > 1.0 else raw * 100.0
+        ai_score  = max(0.0, min(100.0, 100.0 - human_pct))
 
         logger.info("[winston] ai_score=%.1f%%", ai_score)
         return {"score": round(ai_score, 1), "error": None}

@@ -27,26 +27,27 @@ def compute_final_verdict(style: dict, plag: dict) -> str:
     """
     Combine style-shift signal and plagiarism score into one final verdict.
 
-    Genuine          → style_shift LOW   AND plagiarism < 20 %
-    Needs Review     → style_shift MEDIUM AND plagiarism < 40 %
-    Suspicious       → style_shift HIGH  OR  plagiarism >= 40 %
-    Highly Suspicious→ style_shift HIGH  AND plagiarism >= 40 %
+    Genuine           → style_shift LOW                AND plagiarism < 20 %
+    Needs Review      → style_shift MODERATE            OR  plagiarism 20-40 %
+    Suspicious        → style_shift HIGH                OR  plagiarism >= 40 %
+    Highly Suspicious → style_shift VERY HIGH           OR  (HIGH + plagiarism >= 40 %)
     """
-    shift       = style.get("style_shift", "LOW").upper()
-    plag_score  = plag.get("score")          # float or None on error
+    shift      = style.get("style_shift", "LOW").upper()
+    plag_score = plag.get("score")   # float or None on error
 
     # If plagiarism API errored, treat as unknown (0 for verdict logic)
     p = float(plag_score) if plag_score is not None else 0.0
 
-    high_shift = shift == "HIGH"
-    high_plag  = p >= 40.0
-    med_shift  = shift == "MEDIUM"
+    very_high_shift = shift == "VERY HIGH"
+    high_shift      = shift == "HIGH"
+    moderate_shift  = shift == "MODERATE"
+    high_plag       = p >= 40.0
 
-    if high_shift and high_plag:
+    if very_high_shift or (high_shift and high_plag):
         return "HIGHLY SUSPICIOUS"
     if high_shift or high_plag:
         return "SUSPICIOUS"
-    if med_shift or p >= 20.0:
+    if moderate_shift or p >= 20.0:
         return "NEEDS REVIEW"
     return "GENUINE"
 
@@ -155,10 +156,10 @@ async def _run_full_analysis(personal: str, technical: str) -> dict:
     Run style-shift analysis + plagiarism check in parallel.
     Returns the merged analysis dict ready for the API response.
     """
-    # style_compare is pure Python (no I/O) — run directly
-    # plag_check is async + slow (network polling) — awaited after style
+    # calculate_style_shift is pure Python (no I/O) — run in thread
+    # plag_check is async + slow (network) — both run concurrently
     style_result, plag_result = await asyncio.gather(
-        asyncio.to_thread(style_compare, personal, technical),
+        asyncio.to_thread(calculate_style_shift, personal, technical),
         plag_check(technical),
     )
 

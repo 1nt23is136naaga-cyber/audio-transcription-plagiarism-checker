@@ -75,6 +75,26 @@ def _filler_ratio(text: str) -> float:
     total = max(1, len(text.split()))
     return round(count / total, 3)
 
+
+# Formal transition / connector words — high density = structured, written text
+_TRANSITIONS = {
+    'however', 'furthermore', 'additionally', 'therefore', 'consequently',
+    'subsequently', 'nevertheless', 'nonetheless', 'specifically',
+    'particularly', 'notably', 'in addition', 'as a result', 'in order to',
+    'such as', 'for example', 'in particular', 'as well as', 'in terms of',
+    'with respect to', 'on the other hand', 'in contrast', 'that is',
+    'for instance', 'to summarize', 'in conclusion', 'to illustrate',
+    'as mentioned', 'it is important', 'it is worth', 'it should be noted',
+}
+
+def _transition_density(text: str) -> float:
+    """Ratio of formal transition/connector phrases to total words (0-1).
+    Higher = more structured / written text.  Very diagnostic in AI-vs-spoken comparison."""
+    lower = text.lower()
+    total = max(1, len(text.split()))
+    count = sum(1 for t in _TRANSITIONS if t in lower)
+    return round(count / total, 4)
+
 def _formality_score(text: str) -> float:
     """Higher = more formal (0-100)."""
     score = (
@@ -86,13 +106,15 @@ def _formality_score(text: str) -> float:
 
 def _build_profile(text: str) -> dict:
     return {
-        "word_count":        len(text.split()),
-        "avg_sentence_len":  _avg_sentence_len(text),
-        "lexical_diversity": _lexical_diversity(text),
-        "vocabulary_level":  _vocabulary_level(text),
-        "grammar_score":     _grammar_score(text),
-        "filler_ratio":      _filler_ratio(text),
-        "formality_score":   _formality_score(text),
+        "word_count":          len(text.split()),
+        "sentence_count":      max(1, len(_sentences(text))),
+        "avg_sentence_len":    _avg_sentence_len(text),
+        "lexical_diversity":   _lexical_diversity(text),
+        "vocabulary_level":    _vocabulary_level(text),
+        "grammar_score":       _grammar_score(text),
+        "filler_ratio":        _filler_ratio(text),
+        "formality_score":     _formality_score(text),
+        "transition_density":  _transition_density(text),
     }
 
 
@@ -122,12 +144,13 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
     t = _build_profile(technical)
 
     WEIGHT_MAP = [
-        ("vocabulary_level",  2.5, False),
-        ("formality_score",   2.0, False),
-        ("grammar_score",     1.5, False),
-        ("avg_sentence_len",  1.2, False),
-        ("lexical_diversity", 1.0, False),
-        ("filler_ratio",      0.8, True),   # inverted: big DROP = suspicious
+        ("vocabulary_level",   2.5, False),
+        ("formality_score",    2.0, False),
+        ("grammar_score",      1.5, False),
+        ("transition_density", 2.0, False),  # written/structured text marker
+        ("avg_sentence_len",   1.2, False),
+        ("lexical_diversity",  1.0, False),
+        ("filler_ratio",       0.8, True),   # inverted: big DROP = suspicious
     ]
 
     total_weight = sum(w for _, w, _ in WEIGHT_MAP)
@@ -149,6 +172,17 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
     gram_jump = t["grammar_score"]    - p["grammar_score"]
     sent_jump = t["avg_sentence_len"] - p["avg_sentence_len"]
     fill_drop = p["filler_ratio"]     - t["filler_ratio"]
+
+    # ── Word count ratio penalty ──────────────────────────────────────────────
+    # If technical response is 2x+ longer, over-elaboration is itself a signal.
+    word_ratio = t["word_count"] / max(1, p["word_count"])
+    if word_ratio > 2.0:
+        shift_score = min(100.0, shift_score + (word_ratio - 2.0) * 10)
+
+    # ── Single run-on sentence vs multiple structured sentences ───────────────
+    # e.g. personal=1 rushed sentence, technical=4 well-formed sentences
+    if p["sentence_count"] == 1 and t["sentence_count"] >= 3:
+        shift_score = min(100.0, shift_score + 12.0)
 
     # ── Rule 1: Multiple strong signals → minimum shift of 50 ─────────────────
     strong_signal_count = sum([
@@ -201,8 +235,15 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
         flags.append("Significant formality jump — personal and technical tones differ sharply")
     if gram_jump > 12:
         flags.append("Grammar quality improved substantially — may indicate AI-generated content")
-    if fill_drop > 0.03 and p["filler_ratio"] > 0.02:
-        flags.append("Casual personal speech vs polished technical text — style inconsistency")
+    if t["transition_density"] > 0.04 and p["transition_density"] < 0.02:
+        flags.append("High use of formal connectors in technical round — structured/written language detected")
+    if word_ratio > 2.0:
+        flags.append(
+            f"Technical response is {word_ratio:.1f}x longer than personal — "
+            "significant elaboration gap may indicate prepared/AI-generated content"
+        )
+    if p["sentence_count"] == 1 and t["sentence_count"] >= 3:
+        flags.append("Single run-on sentence in personal vs multiple structured sentences in technical round")
     if sent_jump > 6:
         flags.append("Sentence complexity increased significantly in technical round")
     if personal_simple and technical_complex:
