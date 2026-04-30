@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Interview Authenticity Checker",
+  "version": "1.0",
+  "description": "Record and analyze interview responses in real-time.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Interview Checker"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "audio"
+  ]
+}
