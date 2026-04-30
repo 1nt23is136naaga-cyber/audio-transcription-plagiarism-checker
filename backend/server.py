@@ -1,44 +1,46 @@
 """
-server.py — Extended entry point for v2 of the Audio Transcription & Plagiarism API.
+server.py — Interview Authenticity Checker API
 
-This file wraps the existing FastAPI app from main.py and mounts the new voice_module
-router WITHOUT modifying main.py in any way. All v1 routes remain identical.
+Runs the FastAPI app with CORS, serves interview.html, and mounts
+the voice_module router (transcription + style comparison + plagiarism).
 
 Run:
     uvicorn server:app --reload --port 8000
-
-The existing `uvicorn main:app` command will also still work (without voice routes).
 """
 
-# ── Load .env FIRST — use absolute path so it works regardless of CWD ─────────
-from pathlib import Path as _Path
-from dotenv import load_dotenv as _load_dotenv
-_load_dotenv(_Path(__file__).parent / ".env", override=True)
-
 from pathlib import Path
+from dotenv import load_dotenv
 
-from fastapi.staticfiles import StaticFiles
+load_dotenv(Path(__file__).parent / ".env", override=True)
 
-# ── Import existing v1 app (unmodified) ───────────────────────────────────────
-from main import app  # noqa: F401  — brings in all existing routes as-is
+import logging
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
-# ── Mount new voice module router ─────────────────────────────────────────────
+logging.basicConfig(level=logging.INFO)
+
+app = FastAPI(title="Interview Authenticity Checker")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ── Mount voice module router ──────────────────────────────────────────────────
 from voice_module.routes import router as voice_router
-
 app.include_router(voice_router, prefix="/voice")
 
-# ── Serve the new interview frontend page ─────────────────────────────────────
+# ── Serve frontend ─────────────────────────────────────────────────────────────
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
-
+@app.get("/", include_in_schema=False)
 @app.get("/interview", include_in_schema=False)
 def serve_interview():
-    from fastapi.responses import FileResponse
     return FileResponse(FRONTEND_DIR / "interview.html")
 
-
-@app.get("/text-test", include_in_schema=False)
-def serve_text_test():
-    from fastapi.responses import FileResponse
-    return FileResponse(FRONTEND_DIR / "text_test.html")
-
+@app.get("/health")
+def health():
+    return {"status": "ok"}
