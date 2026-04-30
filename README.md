@@ -1,3 +1,12 @@
+---
+title: Interview Authenticity Detector
+emoji: 🎤
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+---
+
 # 🎤 AI Interview Authenticity Detector
 
 > Detect AI-assisted and plagiarised interview responses using real-time voice transcription, communication style analysis, and web plagiarism scanning.
