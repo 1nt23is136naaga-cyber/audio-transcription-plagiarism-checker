@@ -13,9 +13,18 @@
     }
   },
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab"
+  ],
+  "optional_permissions": [
+    "microphone"
   ],
   "host_permissions": [
-    "https://naagazz-interview-checker.hf.space/*"
-  ]
+    "https://naagazz-interview-checker.hf.space/*",
+    "https://fonts.googleapis.com/*",
+    "https://fonts.gstatic.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src https://fonts.gstatic.com; default-src 'self'"
+  }
 }
