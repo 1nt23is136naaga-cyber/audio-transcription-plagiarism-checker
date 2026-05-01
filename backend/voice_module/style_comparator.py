@@ -121,8 +121,15 @@ def _build_profile(text: str) -> dict:
 # ── Shift scoring ──────────────────────────────────────────────────────────────
 
 def _pct_diff(p_val: float, t_val: float) -> float:
+    """Percentage difference, capped so small-valued metrics aren't washed out."""
     denom = max(abs(p_val), abs(t_val), 1.0)
     return abs(t_val - p_val) / denom * 100
+
+
+def _transition_diff(p_val: float, t_val: float) -> float:
+    """Transition density lives in [0, 0.1] range — pct_diff denominator of 1.0
+    kills it.  Use a scaled absolute diff instead (×2000 → maps 0.05 diff → 100)."""
+    return min(100.0, abs(t_val - p_val) * 2000)
 
 
 # ── Main entry point ───────────────────────────────────────────────────────────
@@ -147,7 +154,6 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
         ("vocabulary_level",   2.5, False),
         ("formality_score",    2.0, False),
         ("grammar_score",      1.5, False),
-        ("transition_density", 2.0, False),  # written/structured text marker
         ("avg_sentence_len",   1.2, False),
         ("lexical_diversity",  1.0, False),
         ("filler_ratio",       0.8, True),   # inverted: big DROP = suspicious
@@ -163,6 +169,12 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
             diff = min(100, diff * 1.5)   # amplify suspicious drop
         breakdown[key] = round(diff, 1)
         weighted_shift += diff * weight
+
+    # ── Transition density: use fixed absolute-diff formula (pct_diff broken for sub-1 vals)
+    t_density_diff = _transition_diff(p["transition_density"], t["transition_density"])
+    breakdown["transition_density"] = round(t_density_diff, 1)
+    weighted_shift += t_density_diff * 2.0
+    total_weight += 2.0
 
     shift_score = round(min(100.0, weighted_shift / total_weight), 1)
 
@@ -184,22 +196,42 @@ def calculate_style_shift(personal: str, technical: str) -> dict[str, Any]:
     if p["sentence_count"] == 1 and t["sentence_count"] >= 3:
         shift_score = min(100.0, shift_score + 12.0)
 
-    # ── Rule 1: Multiple strong signals → minimum shift of 50 ─────────────────
+    # ── Rule 1: Multiple strong signals → minimum shift of 45 ─────────────────
+    # 2+ simultaneous strong signals is already suspicious (was 3, too lenient).
     strong_signal_count = sum([
-        voc_jump  > 15,
-        form_jump > 18,
+        voc_jump  > 12,          # lowered from 15
+        form_jump > 15,          # lowered from 18
         gram_jump > 12,
-        sent_jump > 6,
-        fill_drop > 0.03 and p["filler_ratio"] > 0.02,
+        sent_jump > 5,           # lowered from 6
+        fill_drop > 0.02 and p["filler_ratio"] > 0.01,
+        t_density_diff > 30,     # new: high transition density jump
     ])
-    if strong_signal_count >= 3:
-        shift_score = max(shift_score, 50.0)
+    if strong_signal_count >= 2:     # lowered from 3
+        shift_score = max(shift_score, 45.0)
+    if strong_signal_count >= 4:
+        shift_score = max(shift_score, 65.0)
 
     # ── Rule 2: Simple personal → complex technical: +20 penalty ──────────────
-    personal_simple   = p["vocabulary_level"] < 48 and p["avg_sentence_len"] < 16
-    technical_complex = t["vocabulary_level"] > 55 or  t["avg_sentence_len"] > 20
+    # Raised personal threshold from 48 to 55 — spoken text with a few formal
+    # words ("department", "publications") was barely missing this rule.
+    personal_simple   = p["vocabulary_level"] < 55 and p["avg_sentence_len"] < 16
+    technical_complex = t["vocabulary_level"] > 52 or  t["avg_sentence_len"] > 18
     if personal_simple and technical_complex:
         shift_score = min(100.0, shift_score + 20.0)
+
+    # ── Rule 3: Direct formality gap penalty (new) ────────────────────────────
+    # A >20 point raw formality gap is a direct authenticity signal regardless
+    # of other metrics — catches well-spoken personal + AI technical combos.
+    if form_jump > 20:
+        shift_score = min(100.0, shift_score + 15.0)
+    elif form_jump > 12:
+        shift_score = min(100.0, shift_score + 8.0)
+
+    # ── Rule 4: Sentence length ratio (new) ──────────────────────────────────
+    # If avg technical sentence is 1.8× longer than personal, that's suspicious.
+    sent_ratio = t["avg_sentence_len"] / max(p["avg_sentence_len"], 1.0)
+    if sent_ratio > 1.8:
+        shift_score = min(100.0, shift_score + 8.0)
 
     shift_score = round(shift_score, 1)
 
