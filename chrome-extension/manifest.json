@@ -1,16 +1,21 @@
 {
   "manifest_version": 3,
   "name": "Interview Authenticity Checker",
-  "version": "1.0",
-  "description": "Record and analyze interview responses in real-time.",
+  "version": "2.0",
+  "description": "Detect AI-generated and plagiarised interview responses using style comparison and plagiarism scanning.",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Interview Checker"
+    "default_title": "Interview Authenticity Checker",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "audio"
+    "storage"
+  ],
+  "host_permissions": [
+    "https://naagazz-interview-checker.hf.space/*"
   ]
 }
