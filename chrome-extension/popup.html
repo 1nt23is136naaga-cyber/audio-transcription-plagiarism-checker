@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Interview Authenticity Checker</title>
-  <style>html, body { min-width: 820px; }</style>
+  <style>html,body{min-width:820px}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -37,7 +37,7 @@
       padding: 0 0 80px;
     }
 
-    /* â•â• Header â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Header ══════════════════════════════════════════════════════════════ */
     header {
       background: linear-gradient(135deg, #0b1120 0%, #0f1a2e 100%);
       border-bottom: 1px solid var(--border);
@@ -60,7 +60,7 @@
     }
     header p { font-size: .82rem; color: var(--muted); margin-top: 2px; }
 
-    /* â•â• Layout â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Layout ══════════════════════════════════════════════════════════════ */
     .container {
       max-width: 820px;
       margin: 0 auto;
@@ -70,7 +70,7 @@
       gap: 28px;
     }
 
-    /* â•â• Cards â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Cards ═══════════════════════════════════════════════════════════════ */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -107,7 +107,7 @@
     .card-title { font-size: 1rem; font-weight: 700; }
     .card-sub   { font-size: .8rem; color: var(--muted); margin-top: 2px; }
 
-    /* â•â• Candidate Setup â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Candidate Setup ════════════════════════════════════════════════════ */
     .id-row { display: flex; gap: 10px; flex-wrap: wrap; }
 
     input[type="text"] {
@@ -125,7 +125,7 @@
     input[type="text"]:focus { border-color: var(--accent); }
     input[type="text"]::placeholder { color: var(--muted); }
 
-    /* â•â• Buttons â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Buttons ════════════════════════════════════════════════════════════ */
     .btn {
       padding: 10px 20px; border: none; border-radius: 10px;
       font-size: .88rem; font-weight: 600;
@@ -148,7 +148,7 @@
     .btn-purple:not(:disabled):hover  { box-shadow: 0 0 18px rgba(139,92,246,.4); }
     .btn-green:not(:disabled):hover   { box-shadow: 0 0 18px rgba(16,185,129,.4); }
 
-    /* â•â• Tab row â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Tab row ════════════════════════════════════════════════════════════ */
     .tab-row {
       display: flex; gap: 8px;
       background: var(--surface2);
@@ -172,7 +172,7 @@
       box-shadow: 0 1px 4px rgba(0,0,0,.4);
     }
 
-    /* â•â• Record panel â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Record panel ═══════════════════════════════════════════════════════ */
     .record-zone {
       background: var(--surface2);
       border: 1px dashed var(--border2);
@@ -259,7 +259,7 @@
 
     input[type="file"] { display: none; }
 
-    /* â•â• Transcript box â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Transcript box ══════════════════════════════════════════════════════ */
     .transcript-box {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -285,7 +285,7 @@
       display: flex; align-items: center; gap: 5px;
     }
 
-    /* â•â• Status bar â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Status bar ══════════════════════════════════════════════════════════ */
     .status-bar {
       display: flex; align-items: center; gap: 8px;
       font-size: .8rem; color: var(--muted);
@@ -309,7 +309,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* â•â• Comparison results â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Comparison results ══════════════════════════════════════════════════ */
     #resultsSection { display: none; }
 
     .scores-grid {
@@ -394,7 +394,7 @@
       font-size: .85rem; line-height: 1.5;
     }
     .suggestion-item::before {
-      content: 'â†’'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+      content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px;
     }
 
     /* Previews */
@@ -412,7 +412,7 @@
     }
     .preview-card p { font-size: .83rem; line-height: 1.6; color: var(--text); }
 
-    /* â•â• Toast â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Toast ═══════════════════════════════════════════════════════════════ */
     #toast {
       position: fixed; bottom: 24px; right: 24px;
       padding: 13px 18px; border-radius: 10px;
@@ -430,7 +430,7 @@
       border: 1px solid rgba(20,83,45,.7);
     }
 
-    /* â•â• Progress steps â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Progress steps ══════════════════════════════════════════════════════ */
     .progress-steps {
       display: flex; align-items: center; justify-content: center;
       gap: 0; margin-bottom: 40px;
@@ -459,7 +459,7 @@
     }
     @media (max-width: 480px) { .ps-line { width: 20px; } .ps span { display: none; } }
 
-    /* â•â• Rich Results â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    /* ══ Rich Results ═══════════════════════════════════════════════════════════ */
     .verdict-banner {
       border-radius: 14px; padding: 18px 22px;
       display: flex; align-items: center; gap: 16px;
@@ -610,16 +610,16 @@
 </head>
 <body>
 
-<!-- â•â• Header â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ Header ═════════════════════════════════════════════════════════════════ -->
 <header>
-  <div class="logo">ðŸŽ¤</div>
+  <div class="logo">🎤</div>
   <div>
     <h1>Voice Interview Consistency Checker</h1>
-    <p>Record â†’ Transcribe â†’ Compare personal &amp; technical responses with AI</p>
+    <p>Record → Transcribe → Compare personal &amp; technical responses with AI</p>
   </div>
 </header>
 
-<!-- â•â• Main â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ Main ═══════════════════════════════════════════════════════════════════ -->
 <div class="container">
 
   <!-- Progress -->
@@ -633,7 +633,7 @@
     <div class="ps" id="ps4"><div class="ps-num">4</div><span>Compare</span></div>
   </div>
 
-  <!-- â”€â”€ Step 0: Candidate Setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── Step 0: Candidate Setup ─────────────────────────────────────────── -->
   <div class="card active" id="cardSetup">
     <div class="card-header">
       <div class="step-badge" id="badge0">0</div>
@@ -644,8 +644,8 @@
     </div>
     <div class="id-row">
       <input type="text" id="candidateId" placeholder="e.g. cand_john_doe_001" />
-      <button class="btn btn-ghost" id="btnGenId">âš¡ Auto-generate</button>
-      <button class="btn btn-primary" id="btnSetId">Confirm ID â†’</button>
+      <button class="btn btn-ghost" id="btnGenId">⚡ Auto-generate</button>
+      <button class="btn btn-primary" id="btnSetId">Confirm ID →</button>
     </div>
     <div class="status-bar" id="idStatus">
       <span class="dot"></span>
@@ -653,7 +653,7 @@
     </div>
   </div>
 
-  <!-- â”€â”€ Step 1: Personal Introduction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── Step 1: Personal Introduction ───────────────────────────────────── -->
   <div class="card" id="cardPersonal">
     <div class="card-header">
       <div class="step-badge" id="badge1">1</div>
@@ -665,14 +665,14 @@
 
     <!-- Source tabs -->
     <div class="tab-row">
-      <button class="tab active" id="tabPMic" onclick="switchTab('personal','mic')">ðŸŽ™ï¸ Record Mic</button>
-      <button class="tab" id="tabPUp" onclick="switchTab('personal','upload')">ðŸ“ Upload File</button>
+      <button class="tab active" id="tabPMic" onclick="switchTab('personal','mic')">🎙️ Record Mic</button>
+      <button class="tab" id="tabPUp" onclick="switchTab('personal','upload')">📁 Upload File</button>
     </div>
 
     <!-- Mic -->
     <div id="panelPMic">
       <div class="record-zone" id="recZoneP">
-        <button class="mic-icon" id="micBtnP" onclick="toggleRecord('personal')">ðŸŽ™ï¸</button>
+        <button class="mic-icon" id="micBtnP" onclick="toggleRecord('personal')">🎙️</button>
         <div class="timer" id="timerP">0:00</div>
         <div class="rec-hint" id="hintP">Click to start recording</div>
         <div class="waveform" id="waveP">
@@ -687,31 +687,31 @@
     <!-- Upload -->
     <div id="panelPUp" style="display:none">
       <label class="upload-zone" for="fileP">
-        <div style="font-size:2rem">ðŸ“‚</div>
+        <div style="font-size:2rem">📂</div>
         <strong style="font-size:.9rem">Click to choose audio file</strong>
-        <p>Supports .webm Â· .mp3 Â· .wav Â· .m4a Â· .ogg</p>
+        <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="filePName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
       <input type="file" id="fileP" accept="audio/*" onchange="onFileSelect('personal')" />
     </div>
 
-    <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">âœï¸ editable â€” fix any mistakes</span></div>
-    <textarea class="transcript-box" id="transcriptP" placeholder="Transcription will appear here â€” or type directlyâ€¦" rows="4"></textarea>
-    <div class="edit-hint">âœï¸ You can edit the text above to correct any transcription errors</div>
+    <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
+    <textarea class="transcript-box" id="transcriptP" placeholder="Transcription will appear here — or type directly…" rows="4"></textarea>
+    <div class="edit-hint">✏️ You can edit the text above to correct any transcription errors</div>
 
     <div class="status-bar" id="statusP">
       <span class="dot" id="dotP"></span>
-      <span id="labelP">Waiting for audioâ€¦</span>
+      <span id="labelP">Waiting for audio…</span>
     </div>
     <div class="btn-row">
       <button class="btn btn-green" id="btnSaveP" disabled>
-        <span id="savePText">âœ… Confirm Personal Response</span>
+        <span id="savePText">✅ Confirm Personal Response</span>
         <span class="spinner" id="spnP" style="display:none"></span>
       </button>
     </div>
   </div>
 
-  <!-- â”€â”€ Step 2: Technical Explanation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── Step 2: Technical Explanation ────────────────────────────────────── -->
   <div class="card" id="cardTech">
     <div class="card-header">
       <div class="step-badge" id="badge2">2</div>
@@ -722,13 +722,13 @@
     </div>
 
     <div class="tab-row">
-      <button class="tab active" id="tabTMic" onclick="switchTab('technical','mic')">ðŸŽ™ï¸ Record Mic</button>
-      <button class="tab" id="tabTUp" onclick="switchTab('technical','upload')">ðŸ“ Upload File</button>
+      <button class="tab active" id="tabTMic" onclick="switchTab('technical','mic')">🎙️ Record Mic</button>
+      <button class="tab" id="tabTUp" onclick="switchTab('technical','upload')">📁 Upload File</button>
     </div>
 
     <div id="panelTMic">
       <div class="record-zone" id="recZoneT">
-        <button class="mic-icon" id="micBtnT" onclick="toggleRecord('technical')">ðŸŽ™ï¸</button>
+        <button class="mic-icon" id="micBtnT" onclick="toggleRecord('technical')">🎙️</button>
         <div class="timer" id="timerT">0:00</div>
         <div class="rec-hint" id="hintT">Click to start recording</div>
         <div class="waveform" id="waveT">
@@ -742,51 +742,51 @@
 
     <div id="panelTUp" style="display:none">
       <label class="upload-zone" for="fileT">
-        <div style="font-size:2rem">ðŸ“‚</div>
+        <div style="font-size:2rem">📂</div>
         <strong style="font-size:.9rem">Click to choose audio file</strong>
-        <p>Supports .webm Â· .mp3 Â· .wav Â· .m4a Â· .ogg</p>
+        <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="fileTName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
       <input type="file" id="fileT" accept="audio/*" onchange="onFileSelect('technical')" />
     </div>
 
-    <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">âœï¸ editable â€” fix any mistakes</span></div>
-    <textarea class="transcript-box" id="transcriptT" placeholder="Transcription will appear here â€” or type directlyâ€¦" rows="4"></textarea>
-    <div class="edit-hint">âœï¸ You can edit the text above to correct any transcription errors</div>
+    <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
+    <textarea class="transcript-box" id="transcriptT" placeholder="Transcription will appear here — or type directly…" rows="4"></textarea>
+    <div class="edit-hint">✏️ You can edit the text above to correct any transcription errors</div>
 
     <div class="status-bar" id="statusT">
       <span class="dot" id="dotT"></span>
-      <span id="labelT">Complete Step 1 firstâ€¦</span>
+      <span id="labelT">Complete Step 1 first…</span>
     </div>
     <div class="btn-row">
       <button class="btn btn-green" id="btnSaveT" disabled>
-        <span id="saveTText">âœ… Confirm Technical Response</span>
+        <span id="saveTText">✅ Confirm Technical Response</span>
         <span class="spinner" id="spnT" style="display:none"></span>
       </button>
     </div>
   </div>
 
-  <!-- â”€â”€ Step 3: Compare â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── Step 3: Compare ───────────────────────────────────────────────────── -->
   <div class="card" id="cardCompare">
     <div class="card-header">
       <div class="step-badge" id="badge3">3</div>
       <div>
         <div class="card-title">AI Consistency Analysis</div>
-        <div class="card-sub">Compare both responses using difflib Â· cosine similarity Â· GPT-4o-mini</div>
+        <div class="card-sub">Compare both responses using difflib · cosine similarity · GPT-4o-mini</div>
       </div>
     </div>
     <button class="btn btn-purple" id="btnCompare" disabled style="width:100%;justify-content:center;padding:14px;">
-      <span id="cmpText">ðŸ” Run Deep Analysis</span>
+      <span id="cmpText">🔍 Run Deep Analysis</span>
       <span class="spinner" id="spnCmp" style="display:none"></span>
     </button>
   </div>
 
-  <!-- â”€â”€ Results â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── Results ──────────────────────────────────────────────────────────── -->
   <div id="resultsSection">
     <div class="card">
       <!-- Verdict banner (updated once plagiarism result arrives) -->
       <div class="verdict-banner consistent" id="verdictBanner">
-        <div class="verdict-icon" id="verdictIcon">ðŸ”</div>
+        <div class="verdict-icon" id="verdictIcon">🔍</div>
         <div style="flex:1">
           <div class="verdict-label" id="verdictLabel">Analysing...</div>
           <div class="verdict-sub"   id="verdictSub">Computing style analysis...</div>
@@ -801,20 +801,20 @@
       <div class="summary-pill" id="summaryPill"></div>
 
       <!-- Style Signal Flags -->
-      <div class="sub-title" style="margin-top:4px">ðŸš© Style Signals Detected</div>
+      <div class="sub-title" style="margin-top:4px">🚩 Style Signals Detected</div>
       <div class="flags-wrap" id="flagsWrap"></div>
     </div>
 
     <!-- AI & Plagiarism detail card -->
     <div class="card" id="plagCard" style="display:none">
       <div class="card-header" style="margin-bottom:12px">
-        <div class="step-badge" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">ðŸ¤–</div>
+        <div class="step-badge" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">🤖</div>
         <div>
           <div class="card-title">Winston AI Analysis</div>
           <div class="card-sub">Technical response scanned for AI Generation and Plagiarism via Winston AI</div>
         </div>
       </div>
-      <div class="plag-loading" id="plagLoading"><div class="spinner"></div> Scanning â€” this can take 10â€“30 s...</div>
+      <div class="plag-loading" id="plagLoading"><div class="spinner"></div> Scanning — this can take 10–30 s...</div>
       <div class="plag-error"  id="plagError"></div>
       <div id="plagResults"></div>
     </div>
@@ -822,8 +822,8 @@
     <!-- Buttons -->
     <div class="card" style="padding:18px 24px">
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="location.reload()">â†º New Session</button>
-        <button class="btn btn-primary" id="btnRecompare">ðŸ”„ Re-analyse</button>
+        <button class="btn btn-ghost" onclick="location.reload()">↺ New Session</button>
+        <button class="btn btn-primary" id="btnRecompare">🔄 Re-analyse</button>
       </div>
     </div>
   </div>
@@ -832,547 +832,7 @@
 
 <div id="toast"></div>
 
-<!-- â•â• Script â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<script>
-  const API = 'https://naagazz-interview-checker.hf.space/voice';
-
-  // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  const state = {
-    candidateId: '',
-    personal:  { blob: null, recording: false, timer: null, elapsed: 0 },
-    technical: { blob: null, recording: false, timer: null, elapsed: 0 },
-    mediaRecorder:  { personal: null, technical: null },
-    personalDone:   false,
-    technicalDone:  false,
-  };
-
-  // â”€â”€ Refs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  const $ = id => document.getElementById(id);
-
-  // â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  let _toastT;
-  function toast(msg, type = 'error') {
-    const el = $('toast');
-    el.textContent = (type === 'error' ? 'âš ï¸ ' : 'âœ“ ') + msg;
-    el.className = 'toast ' + type;
-    el.style.display = 'block';
-    clearTimeout(_toastT);
-    _toastT = setTimeout(() => { el.style.display = 'none'; }, 6000);
-  }
-
-  // â”€â”€ Candidate ID setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  $('btnGenId').addEventListener('click', () => {
-    const id = 'cand_' + Math.random().toString(36).slice(2, 8).toUpperCase();
-    $('candidateId').value = id;
-  });
-
-  $('btnSetId').addEventListener('click', confirmId);
-  $('candidateId').addEventListener('keydown', e => { if (e.key === 'Enter') confirmId(); });
-
-  function confirmId() {
-    const val = $('candidateId').value.trim();
-    if (!val) { toast('Please enter or generate a candidate ID'); return; }
-    state.candidateId = val;
-
-    // Update UI
-    $('idStatus').innerHTML = `<span class="dot green"></span> Session active: <strong>${val}</strong>`;
-    $('cardSetup').classList.add('active');
-    $('badge0').textContent = 'âœ“';
-    $('badge0').style.cssText = 'background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:var(--green)';
-    $('btnSaveP').disabled = false;
-    updateProgress(2);
-  }
-
-  // â”€â”€ Tab switching â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function switchTab(type, mode) {
-    const pfx = type === 'personal' ? 'P' : 'T';
-    $(`tabPMic, tabPUp, tabTMic, tabTUp`.split(', ').find(id => id === `tab${pfx}Mic`));
-    // Personal
-    if (type === 'personal') {
-      $('tabPMic').classList.toggle('active', mode === 'mic');
-      $('tabPUp').classList.toggle('active', mode !== 'mic');
-      $('panelPMic').style.display = mode === 'mic' ? '' : 'none';
-      $('panelPUp').style.display  = mode !== 'mic' ? '' : 'none';
-    } else {
-      $('tabTMic').classList.toggle('active', mode === 'mic');
-      $('tabTUp').classList.toggle('active', mode !== 'mic');
-      $('panelTMic').style.display = mode === 'mic' ? '' : 'none';
-      $('panelTUp').style.display  = mode !== 'mic' ? '' : 'none';
-    }
-  }
-
-  // â”€â”€ File select â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function onFileSelect(type) {
-    const fileInput = type === 'personal' ? $('fileP') : $('fileT');
-    const nameEl    = type === 'personal' ? $('filePName') : $('fileTName');
-    if (!fileInput.files[0]) return;
-    const file = fileInput.files[0];
-    state[type].blob = file;
-    nameEl.textContent = 'ðŸ“Ž ' + file.name;
-    updateStatusBar(type, 'amber', `File ready: ${file.name}`);
-  }
-
-  // â”€â”€ Recording â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  async function toggleRecord(type) {
-    const st = state[type];
-    if (st.recording) {
-      stopRecording(type);
-    } else {
-      await startRecording(type);
-    }
-  }
-
-  async function startRecording(type) {
-    if (!state.candidateId) { toast('Set candidate ID first'); return; }
-    let stream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (e) {
-      toast('Microphone access denied: ' + e.message); return;
-    }
-
-    const chunks = [];
-    const mr = new MediaRecorder(stream, { mimeType: bestMime() });
-    state.mediaRecorder[type] = mr;
-    mr.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
-    mr.onstop = () => {
-      state[type].blob = new Blob(chunks, { type: mr.mimeType });
-      stream.getTracks().forEach(t => t.stop());
-      setRecordUI(type, false);
-      updateStatusBar(type, 'amber', `Recorded ${fmtTime(state[type].elapsed)} â€” ready to save`);
-    };
-    mr.start(200);
-
-    state[type].recording = true;
-    state[type].elapsed   = 0;
-    setRecordUI(type, true);
-    state[type].timer = setInterval(() => {
-      state[type].elapsed++;
-      const id = type === 'personal' ? 'timerP' : 'timerT';
-      $(id).textContent = fmtTime(state[type].elapsed);
-    }, 1000);
-  }
-
-  function stopRecording(type) {
-    clearInterval(state[type].timer);
-    state[type].recording = false;
-    if (state.mediaRecorder[type] && state.mediaRecorder[type].state !== 'inactive') {
-      state.mediaRecorder[type].stop();
-    }
-  }
-
-  function setRecordUI(type, isRec) {
-    const pfx   = type === 'personal' ? 'P' : 'T';
-    const zone  = $('recZone' + pfx);
-    const btn   = $('micBtn'  + pfx);
-    const hint  = $('hint'    + pfx);
-    const wave  = $('wave'    + pfx);
-    if (isRec) {
-      zone.classList.add('recording');
-      btn.classList.add('recording');
-      btn.textContent = 'â¹';
-      hint.textContent = 'Recordingâ€¦ click to stop';
-      wave.classList.add('recording');
-    } else {
-      zone.classList.remove('recording');
-      btn.classList.remove('recording');
-      btn.textContent = 'ðŸŽ™ï¸';
-      hint.textContent = 'Click to record again';
-      wave.classList.remove('recording');
-    }
-  }
-
-  function bestMime() {
-    const types = ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
-    return types.find(t => MediaRecorder.isTypeSupported(t)) || '';
-  }
-
-  function fmtTime(s) {
-    return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
-  }
-
-  // â”€â”€ Save personal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  $('btnSaveP').addEventListener('click', () => saveResponse('personal'));
-  $('btnSaveT').addEventListener('click', () => saveResponse('technical'));
-
-  async function saveResponse(type) {
-    if (!state.candidateId) { toast('Set candidate ID first'); return; }
-
-    const saveBtn = type === 'personal' ? $('btnSaveP') : $('btnSaveT');
-    const textEl  = type === 'personal' ? $('savePText') : $('saveTText');
-    const spnEl   = type === 'personal' ? $('spnP') : $('spnT');
-    const tEl     = type === 'personal' ? $('transcriptP') : $('transcriptT');
-    const blob    = state[type].blob;
-
-    // â”€â”€ If audio recorded/uploaded â†’ transcribe it first â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    if (blob) {
-      saveBtn.disabled = true;
-      textEl.style.display = 'none';
-      spnEl.style.display  = 'inline-block';
-      updateStatusBar(type, 'amber', 'Transcribing audio via Deepgramâ€¦');
-
-      const form = new FormData();
-      form.append('audio', blob, `${type}_${state.candidateId}.webm`);
-      form.append('type', type);
-
-      try {
-        const resp = await fetch(`${API}/transcribe-chunk`, { method: 'POST', body: form });
-        const json = await resp.json();
-        if (!resp.ok) throw new Error(json.detail || resp.statusText);
-
-        // Populate editable textarea with transcription
-        tEl.value = json.text || '';
-        // Clear blob so next click goes to the confirm path (not re-transcribe)
-        state[type].blob = null;
-        updateStatusBar(type, 'amber', `Transcribed â€” ${json.word_count} words. Edit if needed, then click Confirm again.`);
-        toast('âœï¸ Edit if needed, then click Confirm again!', 'success');
-
-      } catch (err) {
-        updateStatusBar(type, 'red', 'âœ— Transcription error: ' + err.message);
-        toast('Transcription failed: ' + err.message);
-        saveBtn.disabled = false;
-        textEl.style.display = '';
-        spnEl.style.display  = 'none';
-        return;
-      } finally {
-        textEl.style.display = '';
-        spnEl.style.display  = 'none';
-        saveBtn.disabled = false;
-      }
-    }
-
-    // â”€â”€ Confirm: read text from textarea (edited or typed directly) â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const text = tEl.value.trim();
-    if (!text) {
-      toast('No text to save â€” record audio or type in the box above');
-      return;
-    }
-
-    updateStatusBar(type, 'green', `âœ“ ${text.split(' ').length} words confirmed`);
-
-    if (type === 'personal') {
-      state.personalDone = true;
-      $('badge1').textContent = 'âœ“';
-      styleBadge($('badge1'), 'green');
-      $('btnSaveT').disabled = false;
-      $('cardTech').classList.add('active');
-      $('dotT').className = 'dot amber';
-      $('labelT').textContent = 'Ready to record or type technical response';
-      updateProgress(3);
-    } else {
-      state.technicalDone = true;
-      $('badge2').textContent = 'âœ“';
-      styleBadge($('badge2'), 'green');
-      $('btnCompare').disabled = false;
-      $('cardCompare').classList.add('active');
-      updateProgress(4);
-    }
-    toast(`${cap(type)} response confirmed!`, 'success');
-  }
-
-
-  // â”€â”€ Verdict logic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  // Called whenever we have fresh style AND/OR plagiarism data.
-  let _styleData  = null;   // analysis object from /text-compare
-  let _plagScore  = null;   // number or null
-
-  function computeVerdict(styleShift, plagPct) {
-    // 4-tier verdict: strictly follows shift thresholds, plagiarism boosts severity
-    const veryHigh = styleShift === 'VERY HIGH';
-    const high     = styleShift === 'HIGH';
-    const moderate = styleShift === 'MODERATE';
-    const highPlag = plagPct !== null && plagPct >= 40;
-    const modPlag  = plagPct !== null && plagPct >= 15;
-
-    if (veryHigh)                          return { label:'Highly Suspicious', icon:'\ud83d\udea8', css:'inconsistent'  };
-    if (high && highPlag)                  return { label:'Highly Suspicious', icon:'\ud83d\udea8', css:'inconsistent'  };
-    if (high || highPlag)                  return { label:'Suspicious',         icon:'\ud83d\udd0d', css:'needs-review' };
-    if (moderate && modPlag)               return { label:'Suspicious',         icon:'\ud83d\udd0d', css:'needs-review' };
-    if (moderate || modPlag)               return { label:'Slight Concern',     icon:'\u26a0\ufe0f', css:'needs-review' };
-    return                                        { label:'Genuine',            icon:'\u2705', css:'consistent'  };
-  }
-
-  function updateVerdict() {
-    if (!_styleData) return;
-    const v = computeVerdict(_styleData.style_shift, _plagScore);
-    $('verdictBanner').className = 'verdict-banner ' + v.css;
-    $('verdictIcon').textContent  = v.icon;
-    $('verdictLabel').textContent = v.label;
-
-    const shift = _styleData.style_shift;
-    const pStr  = _plagScore !== null ? `Plagiarism: ${_plagScore.toFixed(1)}%` : 'Plagiarism: checking...';
-    $('verdictSub').textContent = `Candidate: ${state.candidateId}  \u00b7  Style Shift: ${shift}  \u00b7  ${pStr}`;
-
-    // Update plagiarism tile
-    const plagHtml = _plagScore !== null
-      ? `<div class="plag-score-big ${_plagScore<15?'safe':_plagScore<40?'warn':'danger'}" style="font-size:2.2rem;font-weight:900;line-height:1">${_plagScore.toFixed(1)}%</div>
-         <div style="margin-top:4px"><span class="badge ${_plagScore<15?'badge-green':_plagScore<40?'badge-amber':'badge-red'}">${_plagScore<15?'Original':_plagScore<40?'Review Needed':'High Risk'}</span></div>`
-      : `<div style="font-size:1rem;color:var(--muted);margin-bottom:4px">Checking...</div><div class="spinner" style="margin:0 auto"></div>`;
-
-    $('scoresGrid').innerHTML = buildTiles(_styleData, plagHtml);
-  }
-
-  function buildTiles(a, plagHtml) {
-    const shiftCls = a.style_shift==='VERY HIGH'?'badge-red':a.style_shift==='HIGH'?'badge-amber':a.style_shift==='MODERATE'?'badge-amber':'badge-green';
-    return `
-      <div class="score-tile">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px">Authenticity Score</div>
-        <div class="score-num ${gradClass(a.authenticity_score)}" style="font-size:2.2rem;font-weight:900;line-height:1">${a.authenticity_score}</div>
-        <div style="margin-top:4px"><span class="badge ${badgeClass(a.authenticity_score)}">/100</span></div>
-      </div>
-      <div class="score-tile">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px">Style Shift</div>
-        <div style="font-size:1.6rem;font-weight:900;color:var(--text)">${a.style_shift}</div>
-        <div style="margin-top:4px"><span class="badge ${shiftCls}">Score: ${a.shift_score}/100</span></div>
-      </div>
-      <div class="score-tile">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px">Plagiarism Score</div>
-        ${plagHtml}
-      </div>`;
-  }
-
-  // â”€â”€ Deep-dive toggle (kept for compatibility, no-op) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function toggleDeepDive() {}
-
-  // â”€â”€ Compare â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  $('btnCompare').addEventListener('click', runCompare);
-  $('btnRecompare').addEventListener('click', runCompare);
-
-  async function runCompare() {
-    if (!state.candidateId) { toast('No candidate ID'); return; }
-    const personalText  = $('transcriptP').value.trim();
-    const technicalText = $('transcriptT').value.trim();
-    if (!personalText)  { toast('Personal response is empty \u2014 record or type it first');  return; }
-    if (!technicalText) { toast('Technical response is empty \u2014 record or type it first'); return; }
-
-    _styleData = null; _plagScore = null;
-    setLoading(true);
-    $('resultsSection').style.display = 'none';
-    $('plagCard').style.display       = 'none';
-
-    try {
-      const resp = await fetch(`${API}/text-compare`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ candidate_id: state.candidateId, personal: personalText, technical: technicalText }),
-      });
-      const data = await resp.json();
-      if (!resp.ok) throw new Error(data.detail || resp.statusText);
-      renderResults(data);
-      $('resultsSection').style.display = 'block';
-      $('badge3').textContent = '\u2713'; styleBadge($('badge3'), 'green');
-      setTimeout(() => $('resultsSection').scrollIntoView({ behavior:'smooth', block:'start' }), 80);
-      runPlagiarismCheck(technicalText);   // non-blocking
-    } catch (err) {
-      toast('Analysis failed: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function setLoading(on) {
-    const btn = $('btnCompare');
-    $('cmpText').style.display = on ? 'none' : '';
-    $('spnCmp').style.display  = on ? 'inline-block' : 'none';
-    btn.disabled = on;
-  }
-
-  // â”€â”€ Plagiarism check (technical only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  async function runPlagiarismCheck(technical) {
-    $('plagCard').style.display = 'block';
-    $('plagLoading').classList.add('active');
-    $('plagError').classList.remove('active');
-    $('plagResults').innerHTML = '';
-    try {
-      const resp = await fetch(`${API}/plagiarism`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ technical }),
-      });
-      const data = await resp.json();
-      if (!resp.ok) throw new Error(data.detail || resp.statusText);
-      renderPlagiarism(data);
-    } catch (e) {
-      const msg = e.message || '';
-      let friendly = 'Plagiarism check unavailable. Please try again later.';
-      if (/429|rate.?limit|quota|already submitted/i.test(msg)) {
-        friendly = 'Plagiarism check unavailable \u2014 API limit reached. Results will show without plagiarism score.';
-      } else if (/timeout|network|failed to fetch/i.test(msg)) {
-        friendly = 'Plagiarism check timed out. The service may be busy \u2014 try re-analysing.';
-      } else if (/token|api.?key|auth/i.test(msg)) {
-        friendly = 'Plagiarism API not configured. Add PLAGIARISM_API_TOKEN to your .env file.';
-      }
-      $('plagError').textContent = '\u26a0\ufe0f ' + friendly;
-      $('plagError').classList.add('active');
-    } finally {
-      $('plagLoading').classList.remove('active');
-    }
-  }
-
-  function renderPlagiarism(data) {
-    const tech       = data.technical || {};
-    const plagResult = tech.plagiarism || tech || {};
-    const aiResult   = tech.ai_detection || {};
-
-    const p_hasErr  = !plagResult || plagResult.error;
-    const p_pct     = p_hasErr ? null : (plagResult.score ?? 0);
-
-    const a_hasErr  = !aiResult || aiResult.error;
-    const a_pct     = a_hasErr ? null : (aiResult.score ?? 0);
-
-    _plagScore = p_pct;
-    updateVerdict();   // recompute final verdict now that plagiarism is known
-
-    // Hide global error banner, we'll show individual errors per tile if needed
-    $('plagError').classList.remove('active');
-
-    // 1. Plagiarism Tile HTML
-    let plagHtml = '';
-    if (p_hasErr) {
-        const errStr = plagResult.error || 'Check failed';
-        let friendly = 'Unavailable';
-        if (/short|minimum/i.test(errStr)) friendly = 'Text too short (<100 chars)';
-        plagHtml = `<div style="color:var(--red);font-size:.85rem;margin-top:10px">\u26a0\ufe0f ${friendly}</div>`;
-    } else {
-        const cls = p_pct < 15 ? 'safe' : p_pct < 40 ? 'warn' : 'danger';
-        const sources = plagResult.sources || [];
-        const srcHtml = sources.length
-          ? `<div class="plag-sources-title">Top Sources</div>` +
-            sources.slice(0,5).map(s =>
-              `<div class="plag-source-item">
-                <a href="${esc(s.url||s.link||'#')}" target="_blank" rel="noopener">${esc(s.title||s.url||s.link||'Source')}</a>
-                <span class="plag-source-pct">${(s.similarity||s.percent||0)}%</span>
-               </div>`).join('')
-          : '';
-        plagHtml = `
-          <div style="display:flex;align-items:center;gap:18px;margin-bottom:14px">
-            <div class="plag-score-big ${cls}" style="flex-shrink:0">${p_pct.toFixed(1)}%</div>
-            <div>
-              <div style="font-size:.75rem;color:var(--muted)">Plagiarised Match</div>
-              <span class="badge ${cls==='safe'?'badge-green':cls==='warn'?'badge-amber':'badge-red'}" style="margin-top:6px">${cls==='safe'?'Original':cls==='warn'?'Review Needed':'High Risk'}</span>
-            </div>
-          </div>
-          ${srcHtml}`;
-    }
-
-    // 2. AI Detection Tile HTML
-    let aiHtml = '';
-    if (a_hasErr) {
-        const errStr = aiResult.error || 'Check failed';
-        let friendly = 'Unavailable';
-        if (/short|minimum/i.test(errStr)) friendly = 'Text too short (<300 chars for AI detection)';
-        aiHtml = `<div style="color:var(--red);font-size:.85rem;margin-top:10px">\u26a0\ufe0f ${friendly}</div>`;
-    } else {
-        const cls = a_pct < 20 ? 'safe' : a_pct < 60 ? 'warn' : 'danger';
-        aiHtml = `
-          <div style="display:flex;align-items:center;gap:18px;margin-bottom:14px">
-            <div class="plag-score-big ${cls}" style="flex-shrink:0">${a_pct.toFixed(1)}%</div>
-            <div>
-              <div style="font-size:.75rem;color:var(--muted)">AI Generated Probability</div>
-              <span class="badge ${cls==='safe'?'badge-green':cls==='warn'?'badge-amber':'badge-red'}" style="margin-top:6px">${cls==='safe'?'Human-written':cls==='warn'?'AI Assisted':'Highly AI Generated'}</span>
-            </div>
-          </div>`;
-    }
-
-    $('plagResults').innerHTML = `
-      <div class="plag-response-grid" style="grid-template-columns:1fr 1fr; gap:16px;">
-        <div class="preview-block">
-          <div class="pb-label">AI CONTENT DETECTION</div>
-          ${aiHtml}
-        </div>
-        <div class="preview-block">
-          <div class="pb-label">PLAGIARISM DETECTION</div>
-          ${plagHtml}
-        </div>
-      </div>
-    `;
-  }
-
-  // â”€â”€ Render style results â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function renderResults(data) {
-    const a = data.analysis || {};
-    _styleData = a;
-
-    // Initial tiles (plagiarism tile shows spinner)
-    $('scoresGrid').innerHTML = buildTiles(a,
-      `<div style="font-size:1rem;color:var(--muted);margin-bottom:8px">Checking...</div><div class="spinner" style="margin:0 auto"></div>`);
-
-    // Summary
-    $('summaryPill').textContent = a.summary || 'Analysis complete.';
-
-    // Style flags
-    const fw = $('flagsWrap'); fw.innerHTML = '';
-    const flags = a.flags || [];
-    if (!flags.length) {
-      fw.innerHTML = '<div class="flag-item partial"><span class="flag-icon">\u2705</span> No style inconsistencies detected.</div>';
-    } else {
-      flags.forEach(f => {
-        const d = document.createElement('div');
-        d.className = 'flag-item contradiction';
-        d.innerHTML = `<span class="flag-icon">\u26a1</span><span>${esc(f)}</span>`;
-        fw.appendChild(d);
-      });
-    }
-
-    // Initial verdict (style only, plagiarism pending)
-    updateVerdict();
-  }
-
-
-    function colorClass(v) {
-    if (v === null || v === undefined) return '';
-    if (v >= 70) return 'green';
-    if (v >= 40) return 'amber';
-    return 'red';
-  }
-
-  function gradClass(v) {
-    if (v >= 70) return 'green-grad';
-    if (v >= 40) return 'amber-grad';
-    return 'red-grad';
-  }
-  function badgeClass(v) {
-    if (v >= 70) return 'badge-green';
-    if (v >= 40) return 'badge-amber';
-    return 'badge-red';
-  }
-
-  // Also add these CSS classes dynamically for tile-num gradient
-  const _sty = document.createElement('style');
-  _sty.textContent = '.green-grad{background:linear-gradient(135deg,#10b981,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.amber-grad{background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.red-grad{background:linear-gradient(135deg,#ef4444,#b91c1c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}';
-  document.head.appendChild(_sty);
-
-  function esc(s) {
-    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function updateStatusBar(type, dotClass, msg) {
-    const pfx = type === 'personal' ? 'P' : 'T';
-    $('dot'   + pfx).className = 'dot ' + dotClass;
-    $('label' + pfx).textContent = msg;
-  }
-
-  function styleBadge(el, color) {
-    const map = {
-      green: 'background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:var(--green)',
-      amber: 'background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)',
-      red:   'background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:var(--red)',
-    };
-    el.style.cssText = map[color] || '';
-  }
-
-  function updateProgress(step) {
-    for (let i = 1; i <= 4; i++) {
-      const el = $('ps' + i);
-      el.classList.remove('active', 'done');
-      if (i < step)  el.classList.add('done');
-      if (i === step) el.classList.add('active');
-    }
-  }
-
-  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-</script>
+<!-- ══ Script ═════════════════════════════════════════════════════════════════ -->
+<script src="popup.js"></script>
 </body>
 </html>
-
