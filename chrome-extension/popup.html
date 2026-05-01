@@ -4,21 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Interview Authenticity Checker</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="popup.css" />
-  
 </head>
 <body>
 
 <!-- ══ Header ═════════════════════════════════════════════════════════════════ -->
 <header>
   <div class="logo">🎤</div>
-  <div>
-    <h1>Voice Interview Consistency Checker</h1>
+  <div style="flex:1">
+    <h1>Interview Authenticity Checker</h1>
     <p>Record → Transcribe → Compare personal &amp; technical responses with AI</p>
   </div>
+  <button id="btnOpenTab" title="Open in full tab for microphone" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.35);color:#a5b4fc;border-radius:8px;padding:8px 14px;font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">&#128279; Open in Tab</button>
 </header>
 
 <!-- ══ Main ═══════════════════════════════════════════════════════════════════ -->
@@ -39,7 +38,7 @@
   <div class="card active" id="cardSetup">
     <div class="card-header">
       <div class="step-badge" id="badge0">0</div>
-      <div>
+      <div style="flex:1">
         <div class="card-title">Candidate Setup</div>
         <div class="card-sub">Enter or generate a unique candidate ID for this session</div>
       </div>
@@ -59,7 +58,7 @@
   <div class="card" id="cardPersonal">
     <div class="card-header">
       <div class="step-badge" id="badge1">1</div>
-      <div>
+      <div style="flex:1">
         <div class="card-title">Personal Introduction</div>
         <div class="card-sub">Record or upload your self-introduction audio</div>
       </div>
@@ -67,14 +66,14 @@
 
     <!-- Source tabs -->
     <div class="tab-row">
-      <button class="tab active" id="tabPMic">🎙️ Record Mic</button>
-      <button class="tab" id="tabPUp">📁 Upload File</button>
+      <button class="tab active" id="tabPMic" onclick="switchTab('personal','mic')">🎙️ Record Mic</button>
+      <button class="tab" id="tabPUp" onclick="switchTab('personal','upload')">📁 Upload File</button>
     </div>
 
     <!-- Mic -->
     <div id="panelPMic">
       <div class="record-zone" id="recZoneP">
-        <button class="mic-icon" id="micBtnP">🎙️</button>
+        <button class="mic-icon" id="micBtnP" onclick="toggleRecord('personal')">🎙️</button>
         <div class="timer" id="timerP">0:00</div>
         <div class="rec-hint" id="hintP">Click to start recording</div>
         <div class="waveform" id="waveP">
@@ -94,7 +93,7 @@
         <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="filePName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
-      <input type="file" id="fileP" accept="audio/*" />
+      <input type="file" id="fileP" accept="audio/*" onchange="onFileSelect('personal')" />
     </div>
 
     <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
@@ -117,20 +116,20 @@
   <div class="card" id="cardTech">
     <div class="card-header">
       <div class="step-badge" id="badge2">2</div>
-      <div>
+      <div style="flex:1">
         <div class="card-title">Technical Explanation</div>
         <div class="card-sub">Explain a technical concept or project you've worked on</div>
       </div>
     </div>
 
     <div class="tab-row">
-      <button class="tab active" id="tabTMic">🎙️ Record Mic</button>
-      <button class="tab" id="tabTUp">📁 Upload File</button>
+      <button class="tab active" id="tabTMic" onclick="switchTab('technical','mic')">🎙️ Record Mic</button>
+      <button class="tab" id="tabTUp" onclick="switchTab('technical','upload')">📁 Upload File</button>
     </div>
 
     <div id="panelTMic">
       <div class="record-zone" id="recZoneT">
-        <button class="mic-icon" id="micBtnT">🎙️</button>
+        <button class="mic-icon" id="micBtnT" onclick="toggleRecord('technical')">🎙️</button>
         <div class="timer" id="timerT">0:00</div>
         <div class="rec-hint" id="hintT">Click to start recording</div>
         <div class="waveform" id="waveT">
@@ -149,7 +148,7 @@
         <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="fileTName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
-      <input type="file" id="fileT" accept="audio/*" />
+      <input type="file" id="fileT" accept="audio/*" onchange="onFileSelect('technical')" />
     </div>
 
     <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
@@ -172,7 +171,7 @@
   <div class="card" id="cardCompare">
     <div class="card-header">
       <div class="step-badge" id="badge3">3</div>
-      <div>
+      <div style="flex:1">
         <div class="card-title">AI Consistency Analysis</div>
         <div class="card-sub">Compare both responses using difflib · cosine similarity · GPT-4o-mini</div>
       </div>
@@ -211,7 +210,7 @@
     <div class="card" id="plagCard" style="display:none">
       <div class="card-header" style="margin-bottom:12px">
         <div class="step-badge" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">🤖</div>
-        <div>
+        <div style="flex:1">
           <div class="card-title">Winston AI Analysis</div>
           <div class="card-sub">Technical response scanned for AI Generation and Plagiarism via Winston AI</div>
         </div>
@@ -224,7 +223,7 @@
     <!-- Buttons -->
     <div class="card" style="padding:18px 24px">
       <div class="btn-row">
-        <button class="btn btn-ghost">↺ New Session</button>
+        <button class="btn btn-ghost" onclick="location.reload()">↺ New Session</button>
         <button class="btn btn-primary" id="btnRecompare">🔄 Re-analyse</button>
       </div>
     </div>

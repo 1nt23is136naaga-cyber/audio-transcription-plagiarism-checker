@@ -14,7 +14,8 @@
   },
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "optional_permissions": [
     "microphone"
