@@ -20,8 +20,8 @@ VALID_TYPES = frozenset({"personal", "technical"})
 
 
 def _get_supabase_config():
-    url = os.getenv("SUPABASE_URL", "").rstrip("/")
-    key = os.getenv("SUPABASE_KEY", "")
+    url = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
+    key = os.getenv("SUPABASE_KEY", "").strip()
     if not url or not key:
         raise RuntimeError("SUPABASE_URL and SUPABASE_KEY must be set in environment")
     return url, key

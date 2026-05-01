@@ -29,7 +29,7 @@ _TIMEOUT   = 60    # seconds — synchronous call, so needs generous timeout
 
 
 def _api_key() -> str:
-    k = os.getenv("WINSTON_AI_API_KEY", "")
+    k = os.getenv("WINSTON_AI_API_KEY", "").strip()
     if not k:
         raise RuntimeError("WINSTON_AI_API_KEY is not set in environment")
     return k

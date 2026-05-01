@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def _client() -> DeepgramClient:
-    api_key = os.getenv("DEEPGRAM_API_KEY")
+    api_key = os.getenv("DEEPGRAM_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("DEEPGRAM_API_KEY is not set in environment")
     return DeepgramClient(api_key)
