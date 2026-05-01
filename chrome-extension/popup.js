@@ -1,4 +1,5 @@
-﻿
+﻿document.addEventListener('DOMContentLoaded', function() {
+
   const API = 'https://naagazz-interview-checker.hf.space/voice';
 
   // ── State ──────────────────────────────────────────────────────────────────
@@ -537,3 +538,17 @@
   }
 
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  // ── Wire up inline handlers removed for MV3 CSP compliance ──────────────
+  document.getElementById('tabPMic').addEventListener('click', () => switchTab('personal','mic'));
+  document.getElementById('tabPUp').addEventListener('click',  () => switchTab('personal','upload'));
+  document.getElementById('tabTMic').addEventListener('click', () => switchTab('technical','mic'));
+  document.getElementById('tabTUp').addEventListener('click',  () => switchTab('technical','upload'));
+  document.getElementById('micBtnP').addEventListener('click', () => toggleRecord('personal'));
+  document.getElementById('micBtnT').addEventListener('click', () => toggleRecord('technical'));
+  document.getElementById('fileP').addEventListener('change',  () => onFileSelect('personal'));
+  document.getElementById('fileT').addEventListener('change',  () => onFileSelect('technical'));
+  document.querySelector('[onclick]') && document.querySelectorAll('[onclick]').forEach(el => el.removeAttribute('onclick'));
+  // New Session button
+  document.querySelector('.btn-ghost').addEventListener('click', () => location.reload());
+});

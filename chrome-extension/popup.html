@@ -665,14 +665,14 @@
 
     <!-- Source tabs -->
     <div class="tab-row">
-      <button class="tab active" id="tabPMic" onclick="switchTab('personal','mic')">🎙️ Record Mic</button>
-      <button class="tab" id="tabPUp" onclick="switchTab('personal','upload')">📁 Upload File</button>
+      <button class="tab active" id="tabPMic">🎙️ Record Mic</button>
+      <button class="tab" id="tabPUp">📁 Upload File</button>
     </div>
 
     <!-- Mic -->
     <div id="panelPMic">
       <div class="record-zone" id="recZoneP">
-        <button class="mic-icon" id="micBtnP" onclick="toggleRecord('personal')">🎙️</button>
+        <button class="mic-icon" id="micBtnP">🎙️</button>
         <div class="timer" id="timerP">0:00</div>
         <div class="rec-hint" id="hintP">Click to start recording</div>
         <div class="waveform" id="waveP">
@@ -692,7 +692,7 @@
         <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="filePName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
-      <input type="file" id="fileP" accept="audio/*" onchange="onFileSelect('personal')" />
+      <input type="file" id="fileP" accept="audio/*" />
     </div>
 
     <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
@@ -722,13 +722,13 @@
     </div>
 
     <div class="tab-row">
-      <button class="tab active" id="tabTMic" onclick="switchTab('technical','mic')">🎙️ Record Mic</button>
-      <button class="tab" id="tabTUp" onclick="switchTab('technical','upload')">📁 Upload File</button>
+      <button class="tab active" id="tabTMic">🎙️ Record Mic</button>
+      <button class="tab" id="tabTUp">📁 Upload File</button>
     </div>
 
     <div id="panelTMic">
       <div class="record-zone" id="recZoneT">
-        <button class="mic-icon" id="micBtnT" onclick="toggleRecord('technical')">🎙️</button>
+        <button class="mic-icon" id="micBtnT">🎙️</button>
         <div class="timer" id="timerT">0:00</div>
         <div class="rec-hint" id="hintT">Click to start recording</div>
         <div class="waveform" id="waveT">
@@ -747,7 +747,7 @@
         <p>Supports .webm · .mp3 · .wav · .m4a · .ogg</p>
         <p id="fileTName" style="color:var(--accent);margin-top:4px;"></p>
       </label>
-      <input type="file" id="fileT" accept="audio/*" onchange="onFileSelect('technical')" />
+      <input type="file" id="fileT" accept="audio/*" />
     </div>
 
     <div class="section-title" style="margin-bottom:8px">Transcription <span style="color:var(--accent);font-size:.7rem;font-weight:500;text-transform:none;letter-spacing:0">✏️ editable — fix any mistakes</span></div>
@@ -822,7 +822,7 @@
     <!-- Buttons -->
     <div class="card" style="padding:18px 24px">
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="location.reload()">↺ New Session</button>
+        <button class="btn btn-ghost">↺ New Session</button>
         <button class="btn btn-primary" id="btnRecompare">🔄 Re-analyse</button>
       </div>
     </div>
