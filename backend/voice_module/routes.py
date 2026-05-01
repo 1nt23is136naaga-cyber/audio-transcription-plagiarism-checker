@@ -11,10 +11,17 @@ import logging
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
 
-from .style_comparator import calculate_style_shift
-from .plagiarism_client import check_text as plag_check, check_ai_content as ai_check
-from .storage import delete_candidate, get_candidate, list_candidates, save_response
-from .transcriber import transcribe_audio
+try:
+    from .style_comparator import calculate_style_shift
+    from .plagiarism_client import check_text as plag_check, check_ai_content as ai_check
+    from .storage import delete_candidate, get_candidate, list_candidates, save_response
+    from .transcriber import transcribe_audio
+except ImportError:
+    from backend.voice_module.style_comparator import calculate_style_shift
+    from backend.voice_module.plagiarism_client import check_text as plag_check, check_ai_content as ai_check
+    from backend.voice_module.storage import delete_candidate, get_candidate, list_candidates, save_response
+    from backend.voice_module.transcriber import transcribe_audio
+
 
 logger = logging.getLogger(__name__)
 

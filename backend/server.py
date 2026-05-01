@@ -4,13 +4,19 @@ server.py — Interview Authenticity Checker API
 Runs the FastAPI app with CORS, serves interview.html, and mounts
 the voice_module router (transcription + style comparison + plagiarism).
 
-Run:
-    uvicorn server:app --reload --port 8000
+Local:
+    cd backend && uvicorn server:app --reload --port 8000
+
+Docker / Hugging Face:
+    uvicorn backend.server:app --host 0.0.0.0 --port 7860
 """
 
+import sys
+import os
 from pathlib import Path
-from dotenv import load_dotenv
 
+# Load .env from backend directory
+from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent / ".env", override=True)
 
 import logging
@@ -30,7 +36,12 @@ app.add_middleware(
 )
 
 # ── Mount voice module router ──────────────────────────────────────────────────
-from voice_module.routes import router as voice_router
+# Support both: `uvicorn server:app` (local) and `uvicorn backend.server:app` (Docker)
+try:
+    from voice_module.routes import router as voice_router
+except ModuleNotFoundError:
+    from backend.voice_module.routes import router as voice_router
+
 app.include_router(voice_router, prefix="/voice")
 
 # ── Serve frontend ─────────────────────────────────────────────────────────────
