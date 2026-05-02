@@ -1,0 +1,20 @@
+[
+  {
+    "username": "admin",
+    "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "admin",
+    "display_name": "Admin"
+  },
+  {
+    "username": "hr1",
+    "password_hash": "070a3b5e8d4bd5c46acccb91c9c54614c0cd649e78c4c4719e3a64270bae5ddf",
+    "role": "hr",
+    "display_name": "HR Employee 1"
+  },
+  {
+    "username": "hr2",
+    "password_hash": "070a3b5e8d4bd5c46acccb91c9c54614c0cd649e78c4c4719e3a64270bae5ddf",
+    "role": "hr",
+    "display_name": "HR Employee 2"
+  }
+]

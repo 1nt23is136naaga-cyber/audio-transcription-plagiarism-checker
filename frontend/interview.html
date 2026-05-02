@@ -605,21 +605,188 @@
 
     .sub-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
     .divider { height:1px; background:var(--border); margin:4px 0; }
+
+    /* ══ Login Overlay ═══════════════════════════════════════════════════════ */
+    #loginOverlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(8,12,20,.97);
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 100%; max-width: 400px;
+      position: relative;
+      box-shadow: 0 0 60px rgba(99,102,241,.15);
+    }
+    .login-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 20px 20px 0 0;
+    }
+    .login-logo {
+      width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      display: grid; place-items: center; font-size: 26px;
+      box-shadow: 0 0 28px var(--glow);
+    }
+    .login-box h2 { text-align:center; font-size:1.3rem; font-weight:800; margin-bottom:4px; }
+    .login-box p  { text-align:center; font-size:.82rem; color:var(--muted); margin-bottom:28px; }
+    .login-field { margin-bottom:16px; }
+    .login-field label { display:block; font-size:.78rem; font-weight:600; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
+    .login-field input {
+      width: 100%; background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 10px; padding: 12px 16px;
+      color: var(--text); font-size: .9rem;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color .2s;
+    }
+    .login-field input:focus { border-color: var(--accent); }
+    #loginError { display:none; padding:10px 14px; border-radius:8px; margin-bottom:14px;
+      background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); color:#f87171; font-size:.83rem; }
+    #loginError.visible { display:block; }
+    .btn-login {
+      width: 100%; padding: 13px; font-size:.95rem; font-weight:700;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      border: none; border-radius: 10px; color: #fff; cursor: pointer;
+      transition: opacity .15s, transform .1s;
+    }
+    .btn-login:hover { opacity:.88; }
+    .btn-login:active { transform:scale(.98); }
+    .demo-creds { margin-top:20px; padding:12px 14px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); }
+    .demo-creds p { font-size:.75rem; color:var(--muted); text-align:left; margin-bottom:4px; font-weight:600; }
+    .demo-creds code { font-size:.75rem; color:#93c5fd; font-family: monospace; }
+
+    /* ══ Dashboard ═══════════════════════════════════════════════════════════ */
+    #dashboardView { display:none; }
+    .dash-header {
+      background: linear-gradient(135deg, #0b1120 0%, #0f1a2e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .dash-header-left { display:flex; align-items:center; gap:14px; }
+    .dash-header h1 { font-size:1.2rem; font-weight:800; }
+    .dash-header p  { font-size:.78rem; color:var(--muted); margin-top:2px; }
+    .role-badge {
+      padding: 4px 12px; border-radius: 999px; font-size:.72rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+    .role-badge.admin { background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
+    .role-badge.hr    { background:rgba(59,130,246,.15);  border:1px solid rgba(59,130,246,.3);  color:#93c5fd; }
+    .dash-container { max-width:900px; margin:0 auto; padding:36px 20px; display:flex; flex-direction:column; gap:24px; }
+    .dash-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; }
+    .dash-card-title { font-size:1rem; font-weight:700; margin-bottom:4px; }
+    .dash-card-sub { font-size:.78rem; color:var(--muted); margin-bottom:20px; }
+    .emp-row {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 11px 14px; border-radius:10px;
+      background:var(--surface2); border:1px solid var(--border); margin-bottom:8px;
+      font-size:.86rem;
+    }
+    .emp-name { font-weight:600; }
+    .emp-user { color:var(--muted); font-size:.78rem; }
+    .add-emp-form { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .add-emp-form input {
+      flex:1; min-width:130px; background:var(--surface2);
+      border:1px solid var(--border2); border-radius:10px;
+      padding:10px 14px; color:var(--text); font-size:.85rem;
+      font-family:'Inter',sans-serif; outline:none;
+      transition:border-color .2s;
+    }
+    .add-emp-form input:focus { border-color:var(--accent); }
+    .dash-empty { text-align:center; padding:40px 20px; color:var(--muted); font-size:.88rem; }
   </style>
 </head>
 <body>
 
+<!-- ══ Login Overlay ══════════════════════════════════════════════════════════ -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">🎤</div>
+    <h2>Interview Authenticity Portal</h2>
+    <p>Sign in to access the interview analysis platform</p>
+    <div id="loginError"></div>
+    <div class="login-field">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" placeholder="e.g. admin" autocomplete="username" />
+    </div>
+    <div class="login-field">
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <button class="btn-login" id="btnLogin">Sign In →</button>
+    <div class="demo-creds">
+      <p>Demo credentials:</p>
+      <code>admin / admin123 &nbsp;·&nbsp; hr1 / hr123 &nbsp;·&nbsp; hr2 / hr123</code>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Dashboard View ══════════════════════════════════════════════════════════ -->
+<div id="dashboardView">
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <div class="logo">🎤</div>
+      <div>
+        <h1>Interview Authenticity Portal</h1>
+        <p id="dashWelcome">Welcome back</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span class="role-badge" id="dashRoleBadge">HR</span>
+      <button class="btn btn-primary" id="btnNewSession">+ New Interview</button>
+      <button class="btn btn-ghost" id="btnLogout">Sign Out</button>
+    </div>
+  </div>
+  <div class="dash-container">
+
+    <!-- Admin: Employee Management -->
+    <div class="dash-card" id="adminPanel" style="display:none">
+      <div class="dash-card-title">👥 HR Employee Management</div>
+      <div class="dash-card-sub">Add and remove HR interviewer accounts</div>
+      <div id="empList"></div>
+      <div class="add-emp-form">
+        <input type="text" id="newEmpUsername" placeholder="Username" />
+        <input type="text" id="newEmpDisplay" placeholder="Display Name" />
+        <input type="password" id="newEmpPassword" placeholder="Password" />
+        <button class="btn btn-green" id="btnAddEmp">+ Add HR Account</button>
+      </div>
+    </div>
+
+    <!-- Candidate Records -->
+    <div class="dash-card">
+      <div class="dash-card-title">📋 Interview Records</div>
+      <div class="dash-card-sub" id="dashRecordsSub">Your submitted interview analyses</div>
+      <div id="candidateList">
+        <div class="dash-empty">⏳ Loading records…</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- ══ Header ═════════════════════════════════════════════════════════════════ -->
-<header>
+<header id="interviewHeader" style="display:none">
   <div class="logo">🎤</div>
-  <div>
+  <div style="flex:1">
     <h1>Voice Interview Consistency Checker</h1>
     <p>Record → Transcribe → Compare personal &amp; technical responses with AI</p>
   </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="btn btn-ghost" id="btnBackDash" style="font-size:.82rem">← Dashboard</button>
+    <button class="btn btn-ghost" id="btnLogout2" style="font-size:.82rem">Sign Out</button>
+  </div>
 </header>
 
+
 <!-- ══ Main ═══════════════════════════════════════════════════════════════════ -->
-<div class="container">
+<div class="container" style="display:none">
 
   <!-- Progress -->
   <div class="progress-steps" id="progressSteps">
@@ -835,6 +1002,241 @@
 <script>
   const API = '/voice';
 
+  // ── Auth Session ───────────────────────────────────────────────────────────
+  const auth = {
+    token:        localStorage.getItem('iap_token') || '',
+    username:     localStorage.getItem('iap_username') || '',
+    role:         localStorage.getItem('iap_role') || '',
+    display_name: localStorage.getItem('iap_display') || '',
+  };
+
+  function authHeaders(extra = {}) {
+    return {
+      'Content-Type': 'application/json',
+      'X-Username': auth.username,
+      'X-Role':     auth.role,
+      ...extra,
+    };
+  }
+
+  function saveAuth(data) {
+    auth.token        = data.token;
+    auth.username     = data.username;
+    auth.role         = data.role;
+    auth.display_name = data.display_name;
+    localStorage.setItem('iap_token',    data.token);
+    localStorage.setItem('iap_username', data.username);
+    localStorage.setItem('iap_role',     data.role);
+    localStorage.setItem('iap_display',  data.display_name);
+  }
+
+  function clearAuth() {
+    auth.token = auth.username = auth.role = auth.display_name = '';
+    ['iap_token','iap_username','iap_role','iap_display'].forEach(k => localStorage.removeItem(k));
+  }
+
+  // ── Refs ───────────────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+
+  // ── Login ──────────────────────────────────────────────────────────────────
+  $('btnLogin').addEventListener('click', doLogin);
+  $('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  async function doLogin() {
+    const username = $('loginUser').value.trim();
+    const password = $('loginPass').value.trim();
+    const errEl    = $('loginError');
+    errEl.className = '';
+    errEl.textContent = '';
+
+    if (!username || !password) {
+      errEl.textContent = 'Please enter your username and password.';
+      errEl.className = 'visible';
+      return;
+    }
+
+    const btn = $('btnLogin');
+    btn.textContent = 'Signing in…';
+    btn.disabled = true;
+
+    try {
+      const resp = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        errEl.textContent = data.detail || 'Login failed.';
+        errEl.className = 'visible';
+        return;
+      }
+      saveAuth(data);
+      $('loginOverlay').style.display = 'none';
+      showDashboard();
+    } catch (e) {
+      errEl.textContent = 'Network error — is the server running?';
+      errEl.className = 'visible';
+    } finally {
+      btn.textContent = 'Sign In →';
+      btn.disabled = false;
+    }
+  }
+
+  // ── Logout ─────────────────────────────────────────────────────────────────
+  function doLogout() {
+    clearAuth();
+    $('loginUser').value = '';
+    $('loginPass').value = '';
+    // Reset admin-only sections so they never leak into next login
+    $('adminPanel').style.display = 'none';
+    $('dashRecordsSub').textContent = 'Your submitted interview analyses';
+    $('loginOverlay').style.display = 'flex';
+    $('dashboardView').style.display = 'none';
+    $('interviewHeader').style.display = 'none';
+    document.querySelector('.container').style.display = 'none';
+  }
+
+  $('btnLogout').addEventListener('click', doLogout);
+  $('btnLogout2').addEventListener('click', doLogout);
+
+  // ── Dashboard ──────────────────────────────────────────────────────────────
+  function showDashboard() {
+    $('dashboardView').style.display = 'block';
+    $('interviewHeader').style.display = 'none';
+    document.querySelector('.container').style.display = 'none';
+
+    const isAdmin = auth.role === 'admin';
+
+    const roleEl = $('dashRoleBadge');
+    roleEl.textContent = isAdmin ? 'Admin' : 'HR';
+    roleEl.className = 'role-badge ' + auth.role;
+
+    $('dashWelcome').textContent = `Welcome, ${auth.display_name || auth.username}`;
+
+    // Strictly show/hide admin-only panel based on role
+    $('adminPanel').style.display = isAdmin ? 'block' : 'none';
+    $('dashRecordsSub').textContent = isAdmin
+      ? 'All submitted interview analyses (admin view)'
+      : 'Your submitted interview analyses';
+
+    if (isAdmin) loadEmployees();
+    loadCandidates();
+  }
+
+  async function loadCandidates() {
+    const listEl = $('candidateList');
+    listEl.innerHTML = '<div class="dash-empty">⏳ Loading records…</div>';
+    try {
+      const resp = await fetch('/voice/candidates', {
+        headers: { 'X-Username': auth.username, 'X-Role': auth.role },
+      });
+      const data = await resp.json();
+      const candidates = data.candidates || [];
+      if (!candidates.length) {
+        listEl.innerHTML = '<div class="dash-empty">📭 No interview records yet. Click <strong>+ New Interview</strong> to start.</div>';
+        return;
+      }
+      listEl.innerHTML = candidates.map(id => `
+        <div class="emp-row">
+          <div>
+            <div class="emp-name">🧑 ${esc(id)}</div>
+            <div class="emp-user">Candidate ID</div>
+          </div>
+          <button class="btn btn-ghost" style="font-size:.8rem" onclick="loadCandidateSession('${esc(id)}')">View → </button>
+        </div>
+      `).join('');
+    } catch (e) {
+      listEl.innerHTML = '<div class="dash-empty" style="color:var(--red)">⚠️ Failed to load records. Is the server running?</div>';
+    }
+  }
+
+  function loadCandidateSession(candidateId) {
+    // Switch to interview view with this candidate pre-loaded
+    showInterviewView();
+    $('candidateId').value = candidateId;
+    // Don't auto-confirm — let user verify
+    toast(`Loaded candidate: ${candidateId}. Click "Confirm ID →" to start.`, 'success');
+  }
+
+  async function loadEmployees() {
+    const listEl = $('empList');
+    try {
+      const resp = await fetch('/auth/employees', {
+        headers: { 'Authorization': `Bearer ${auth.token}` },
+      });
+      if (!resp.ok) { listEl.innerHTML = '<div style="color:var(--muted);font-size:.84rem">Could not load employees.</div>'; return; }
+      const employees = await resp.json();
+      if (!employees.length) {
+        listEl.innerHTML = '<div style="color:var(--muted);font-size:.84rem;margin-bottom:10px">No HR accounts yet.</div>';
+        return;
+      }
+      listEl.innerHTML = employees.map(e => `
+        <div class="emp-row">
+          <div>
+            <div class="emp-name">${esc(e.display_name || e.username)}</div>
+            <div class="emp-user">@${esc(e.username)}</div>
+          </div>
+          <button class="btn btn-red" style="font-size:.8rem" onclick="removeEmployee('${esc(e.username)}')">Remove</button>
+        </div>
+      `).join('');
+    } catch (e) {
+      listEl.innerHTML = '<div style="color:var(--red);font-size:.84rem">Error loading employees.</div>';
+    }
+  }
+
+  $('btnAddEmp').addEventListener('click', async () => {
+    const username     = $('newEmpUsername').value.trim();
+    const display_name = $('newEmpDisplay').value.trim();
+    const password     = $('newEmpPassword').value.trim();
+    if (!username || !password) { toast('Username and password are required'); return; }
+
+    try {
+      const resp = await fetch('/auth/employees', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${auth.token}` },
+        body: JSON.stringify({ username, password, display_name }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) { toast(data.detail || 'Failed to add employee'); return; }
+      $('newEmpUsername').value = '';
+      $('newEmpDisplay').value  = '';
+      $('newEmpPassword').value = '';
+      toast(`HR account @${username} created!`, 'success');
+      loadEmployees();
+    } catch (e) { toast('Network error'); }
+  });
+
+  async function removeEmployee(username) {
+    if (!confirm(`Remove HR account @${username}?`)) return;
+    try {
+      const resp = await fetch(`/auth/employees/${username}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${auth.token}` },
+      });
+      if (!resp.ok) { toast('Failed to remove employee'); return; }
+      toast(`@${username} removed`, 'success');
+      loadEmployees();
+    } catch (e) { toast('Network error'); }
+  }
+
+  // ── New Interview ──────────────────────────────────────────────────────────
+  $('btnNewSession').addEventListener('click', showInterviewView);
+  $('btnBackDash').addEventListener('click', showDashboard);
+
+  function showInterviewView() {
+    $('dashboardView').style.display = 'none';
+    $('interviewHeader').style.display = 'flex';
+    document.querySelector('.container').style.display = 'flex';
+  }
+
+  // ── On page load: check existing session ──────────────────────────────────
+  if (auth.token) {
+    $('loginOverlay').style.display = 'none';
+    showDashboard();
+  }
+  // Else: login overlay is shown by default
+
   // ── State ──────────────────────────────────────────────────────────────────
   const state = {
     candidateId: '',
@@ -845,8 +1247,6 @@
     technicalDone:  false,
   };
 
-  // ── Refs ───────────────────────────────────────────────────────────────────
-  const $ = id => document.getElementById(id);
 
   // ── Toast ──────────────────────────────────────────────────────────────────
   let _toastT;
@@ -1152,7 +1552,7 @@
     try {
       const resp = await fetch(`${API}/text-compare`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify({ candidate_id: state.candidateId, personal: personalText, technical: technicalText }),
       });
       const data = await resp.json();

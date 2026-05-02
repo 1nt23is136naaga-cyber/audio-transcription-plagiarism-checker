@@ -35,7 +35,12 @@ def _headers(key: str) -> dict:
     }
 
 
-def save_response(candidate_id: str, response_type: str, text: str) -> None:
+def save_response(
+    candidate_id: str,
+    response_type: str,
+    text: str,
+    submitted_by: Optional[str] = None,
+) -> None:
     """Persist a transcription for a candidate to Supabase (upsert)."""
     if response_type not in VALID_TYPES:
         raise ValueError(f"response_type must be one of {VALID_TYPES}")
@@ -52,9 +57,11 @@ def save_response(candidate_id: str, response_type: str, text: str) -> None:
 
     payload = {
         "candidate_id": candidate_id,
-        "personal": existing.get("personal"),
-        "technical": existing.get("technical"),
+        "personal":     existing.get("personal"),
+        "technical":    existing.get("technical"),
     }
+    if submitted_by:
+        payload["submitted_by"] = submitted_by
 
     try:
         with httpx.Client(timeout=10) as client:
@@ -134,8 +141,19 @@ def delete_candidate(candidate_id: str) -> bool:
     return True
 
 
-def list_candidates() -> list:
-    """Return all stored candidate IDs."""
+def list_candidates(
+    submitted_by: Optional[str] = None,
+    role: Optional[str] = None,
+) -> list:
+    """
+    Return stored candidate IDs.
+
+    - If role == 'admin' or submitted_by is None  → return all candidates.
+    - If role == 'hr' and submitted_by is set     → filter to that user's submissions.
+    
+    Falls back gracefully to returning all candidates if the submitted_by column
+    doesn't exist in the Supabase table yet.
+    """
     try:
         url, key = _get_supabase_config()
     except RuntimeError:
@@ -143,13 +161,36 @@ def list_candidates() -> list:
 
     try:
         with httpx.Client(timeout=10) as client:
+            # If filtering by HR user, try to use submitted_by column
+            if role == "hr" and submitted_by:
+                params: dict = {
+                    "select": "candidate_id,submitted_by",
+                    "submitted_by": f"eq.{submitted_by}",
+                }
+                resp = client.get(
+                    f"{url}/rest/v1/voice_data",
+                    headers=_headers(key),
+                    params=params,
+                )
+                # If submitted_by column doesn't exist yet, fall through to full list
+                if resp.is_success:
+                    return [row["candidate_id"] for row in resp.json()]
+                if "does not exist" not in resp.text and "42703" not in resp.text:
+                    logger.error("Supabase list failed: %s", resp.text)
+                    return []
+                logger.warning(
+                    "[storage] submitted_by column not found — returning all candidates. "
+                    "Add the column to voice_data in Supabase to enable HR filtering."
+                )
+
+            # Fall back: return all candidate IDs
             resp = client.get(
                 f"{url}/rest/v1/voice_data",
                 headers=_headers(key),
                 params={"select": "candidate_id"},
             )
             if not resp.is_success:
-                logger.error("Supabase list failed: %s", resp.text)
+                logger.error("Supabase list (fallback) failed: %s", resp.text)
                 return []
 
             data = resp.json()
@@ -157,3 +198,4 @@ def list_candidates() -> list:
     except Exception as exc:
         logger.error("Supabase list error: %s", exc)
         return []
+

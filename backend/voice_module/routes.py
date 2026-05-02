@@ -8,7 +8,7 @@ This file does NOT import or touch anything from the existing main.py.
 import asyncio
 import logging
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, UploadFile
 from pydantic import BaseModel
 
 try:
@@ -65,6 +65,7 @@ def compute_final_verdict(style: dict, plag: dict) -> str:
 async def record_personal(
     audio: UploadFile = File(..., description="Audio file (webm, mp3, wav, m4a…)"),
     candidate_id: str = Form(..., description="Unique candidate identifier"),
+    x_username: str = Header(default="", alias="X-Username"),
 ):
     """
     Accept a personal-introduction audio clip, transcribe it via Whisper,
@@ -85,7 +86,7 @@ async def record_personal(
             detail="Whisper returned an empty transcription. Speak more clearly or try again.",
         )
 
-    save_response(candidate_id, "personal", text)
+    save_response(candidate_id, "personal", text, submitted_by=x_username or None)
     logger.info("[voice/record/personal] candidate=%s | %d chars stored", candidate_id, len(text))
 
     return {
@@ -103,6 +104,7 @@ async def record_personal(
 async def record_technical(
     audio: UploadFile = File(..., description="Audio file (webm, mp3, wav, m4a…)"),
     candidate_id: str = Form(..., description="Unique candidate identifier"),
+    x_username: str = Header(default="", alias="X-Username"),
 ):
     """
     Accept a technical-explanation audio clip, transcribe it via Whisper,
@@ -133,7 +135,7 @@ async def record_technical(
             detail="Whisper returned an empty transcription. Speak more clearly or try again.",
         )
 
-    save_response(candidate_id, "technical", text)
+    save_response(candidate_id, "technical", text, submitted_by=x_username or None)
     logger.info("[voice/record/technical] candidate=%s | %d chars stored", candidate_id, len(text))
 
     return {
@@ -183,15 +185,19 @@ async def _run_full_analysis(personal: str, technical: str) -> dict:
     "/text-compare",
     summary="Compare personal vs technical responses (manual text input)",
 )
-async def text_compare(req: TextCompareRequest):
+async def text_compare(
+    req: TextCompareRequest,
+    x_username: str = Header(default="", alias="X-Username"),
+):
     personal  = req.personal.strip()
     technical = req.technical.strip()
     if not personal:
         raise HTTPException(status_code=400, detail="personal text is empty")
     if not technical:
         raise HTTPException(status_code=400, detail="technical text is empty")
-    save_response(req.candidate_id, "personal",  personal)
-    save_response(req.candidate_id, "technical", technical)
+    submitted_by = x_username or None
+    save_response(req.candidate_id, "personal",  personal,  submitted_by=submitted_by)
+    save_response(req.candidate_id, "technical", technical, submitted_by=submitted_by)
     logger.info("[voice/text-compare] candidate=%s | p=%d | t=%d",
                 req.candidate_id, len(personal), len(technical))
     import asyncio as _aio
@@ -324,8 +330,15 @@ async def run_plagiarism(req: PlagCheckRequest):
 # ── GET /voice/candidates ─────────────────────────────────────────────────────
 
 @router.get("/candidates", summary="List all stored candidate IDs")
-def get_candidates():
-    return {"candidates": list_candidates()}
+def get_candidates(
+    x_username: str = Header(default="", alias="X-Username"),
+    x_role: str = Header(default="", alias="X-Role"),
+):
+    candidates = list_candidates(
+        submitted_by=x_username or None,
+        role=x_role or None,
+    )
+    return {"candidates": candidates}
 
 
 # ── GET /voice/candidate/{candidate_id} ───────────────────────────────────────

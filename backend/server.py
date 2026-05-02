@@ -39,10 +39,13 @@ app.add_middleware(
 # Support both: `uvicorn server:app` (local) and `uvicorn backend.server:app` (Docker)
 try:
     from voice_module.routes import router as voice_router
+    from auth_routes import router as auth_router
 except ModuleNotFoundError:
     from backend.voice_module.routes import router as voice_router
+    from backend.auth_routes import router as auth_router
 
 app.include_router(voice_router, prefix="/voice")
+app.include_router(auth_router)
 
 # ── Serve frontend ─────────────────────────────────────────────────────────────
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
