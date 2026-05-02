@@ -10,20 +10,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:         #080c14;
-      --surface:    #0f1623;
-      --surface2:   #161e2e;
-      --border:     #1e2d45;
-      --border2:    #243450;
-      --text:       #e2eaf6;
-      --muted:      #6b7fa3;
-      --accent:     #3b82f6;
+      --bg:         #06080f;
+      --surface:    rgba(255,255,255,.04);
+      --surface-solid: #0d1117;
+      --surface2:   rgba(255,255,255,.06);
+      --border:     rgba(255,255,255,.08);
+      --border2:    rgba(255,255,255,.12);
+      --text:       #e8ecf4;
+      --muted:      rgba(255,255,255,.45);
+      --accent:     #7c6ef0;
       --accent2:    #6366f1;
+      --accent-glow: rgba(124,110,240,.35);
       --green:      #10b981;
       --amber:      #f59e0b;
       --red:        #ef4444;
-      --purple:     #8b5cf6;
-      --glow:       rgba(99,102,241,.18);
+      --purple:     #a78bfa;
+      --glow:       rgba(124,110,240,.2);
+      --glass:      rgba(255,255,255,.04);
+      --glass-border: rgba(255,255,255,.1);
+      --radius:     16px;
     }
 
     html { scroll-behavior: smooth; }
@@ -702,8 +707,16 @@
     .add-emp-form input:focus { border-color:var(--accent); }
     .dash-empty { text-align:center; padding:40px 20px; color:var(--muted); font-size:.88rem; }
   </style>
+  <link rel="stylesheet" href="/echo-insight.css" />
 </head>
 <body>
+
+<!-- ══ Ambient Background Orbs ══════════════════════════════════════════════ -->
+<div class="ambient-bg" aria-hidden="true">
+  <div class="ambient-orb orb1"></div>
+  <div class="ambient-orb orb2"></div>
+  <div class="ambient-orb orb3"></div>
+</div>
 
 <!-- ══ Login Overlay ══════════════════════════════════════════════════════════ -->
 <div id="loginOverlay">

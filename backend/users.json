@@ -16,5 +16,11 @@
     "password_hash": "070a3b5e8d4bd5c46acccb91c9c54614c0cd649e78c4c4719e3a64270bae5ddf",
     "role": "hr",
     "display_name": "HR Employee 2"
+  },
+  {
+    "username": "hr-3",
+    "password_hash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "role": "hr",
+    "display_name": "hr"
   }
 ]

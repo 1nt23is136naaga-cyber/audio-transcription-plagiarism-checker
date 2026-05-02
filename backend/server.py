@@ -55,6 +55,13 @@ FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 def serve_interview():
     return FileResponse(FRONTEND_DIR / "interview.html")
 
+@app.get("/{filename:path}", include_in_schema=False)
+def serve_static(filename: str):
+    file_path = FRONTEND_DIR / filename
+    if file_path.is_file() and file_path.suffix in {".css", ".js", ".png", ".ico", ".svg"}:
+        return FileResponse(file_path)
+    return FileResponse(FRONTEND_DIR / "interview.html")
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
