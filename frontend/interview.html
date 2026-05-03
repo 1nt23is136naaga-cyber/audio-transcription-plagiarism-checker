@@ -1141,17 +1141,32 @@
     loadCandidates();
   }
 
-  async function loadCandidates() {
+  async function loadCandidates(hrFilter = null) {
     const listEl = $('candidateList');
+
+    if (auth.role === 'admin' && !hrFilter) {
+      listEl.innerHTML = '<div class="dash-empty" style="padding: 20px 0;">👆 Click on an HR employee in the list above to view their interview records.</div>';
+      return;
+    }
+
     listEl.innerHTML = '<div class="dash-empty">⏳ Loading records…</div>';
     try {
       const resp = await fetch('/voice/candidates', {
         headers: { 'X-Username': auth.username, 'X-Role': auth.role },
       });
       const data = await resp.json();
-      const candidates = data.candidates || [];
+      let candidates = data.candidates || [];
+
+      if (auth.role === 'admin' && hrFilter) {
+        candidates = candidates.filter(cand => {
+          const by = (typeof cand === 'object' && cand.by && cand.by !== 'unknown') ? cand.by : null;
+          return by === hrFilter;
+        });
+        $('dashRecordsSub').textContent = `Showing interview records submitted by @${hrFilter}`;
+      }
+
       if (!candidates.length) {
-        listEl.innerHTML = '<div class="dash-empty">📭 No interview records yet. Click <strong>+ New Interview</strong> to start.</div>';
+        listEl.innerHTML = '<div class="dash-empty">📭 No interview records found.</div>';
         return;
       }
       listEl.innerHTML = candidates.map(cand => {
@@ -1193,12 +1208,12 @@
         return;
       }
       listEl.innerHTML = employees.map(e => `
-        <div class="emp-row">
+        <div class="emp-row" style="cursor:pointer; transition:border-color .2s; border:1px solid transparent;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='transparent'" onclick="loadCandidates('${esc(e.username)}')">
           <div>
             <div class="emp-name">${esc(e.display_name || e.username)}</div>
             <div class="emp-user">@${esc(e.username)}</div>
           </div>
-          <button class="btn btn-red" style="font-size:.8rem" onclick="removeEmployee('${esc(e.username)}')">Remove</button>
+          <button class="btn btn-red" style="font-size:.8rem" onclick="event.stopPropagation(); removeEmployee('${esc(e.username)}')">Remove</button>
         </div>
       `).join('');
     } catch (e) {
