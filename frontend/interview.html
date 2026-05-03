@@ -1154,15 +1154,19 @@
         listEl.innerHTML = '<div class="dash-empty">📭 No interview records yet. Click <strong>+ New Interview</strong> to start.</div>';
         return;
       }
-      listEl.innerHTML = candidates.map(id => `
+      listEl.innerHTML = candidates.map(cand => {
+        const id = typeof cand === 'string' ? cand : cand.id;
+        const by = (typeof cand === 'object' && cand.by && cand.by !== 'unknown') ? cand.by : null;
+        const byHtml = by ? `<span style="color:var(--primary);font-weight:600;margin-left:6px;">(by ${esc(by)})</span>` : '';
+        return `
         <div class="emp-row">
           <div>
-            <div class="emp-name">🧑 ${esc(id)}</div>
+            <div class="emp-name">🧑 ${esc(id)} ${byHtml}</div>
             <div class="emp-user">Candidate ID</div>
           </div>
           <button class="btn btn-ghost" style="font-size:.8rem" onclick="loadCandidateSession('${esc(id)}')">View → </button>
         </div>
-      `).join('');
+      `}).join('');
     } catch (e) {
       listEl.innerHTML = '<div class="dash-empty" style="color:var(--red)">⚠️ Failed to load records. Is the server running?</div>';
     }

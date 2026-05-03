@@ -174,7 +174,7 @@ def list_candidates(
                 )
                 # If submitted_by column doesn't exist yet, fall through to full list
                 if resp.is_success:
-                    return [row["candidate_id"] for row in resp.json()]
+                    return [{"id": row["candidate_id"], "by": row.get("submitted_by", "unknown")} for row in resp.json()]
                 if "does not exist" not in resp.text and "42703" not in resp.text:
                     logger.error("Supabase list failed: %s", resp.text)
                     return []
@@ -183,18 +183,31 @@ def list_candidates(
                     "Add the column to voice_data in Supabase to enable HR filtering."
                 )
 
-            # Fall back: return all candidate IDs
+            # Fall back: return all candidate IDs with submitted_by
             resp = client.get(
                 f"{url}/rest/v1/voice_data",
                 headers=_headers(key),
-                params={"select": "candidate_id"},
+                params={"select": "candidate_id,submitted_by"},
             )
             if not resp.is_success:
+                # If it fails, maybe submitted_by column really doesn't exist, try without it
+                if "42703" in resp.text or "does not exist" in resp.text:
+                    resp = client.get(
+                        f"{url}/rest/v1/voice_data",
+                        headers=_headers(key),
+                        params={"select": "candidate_id"},
+                    )
+                    if not resp.is_success:
+                        logger.error("Supabase list (fallback) failed: %s", resp.text)
+                        return []
+                    data = resp.json()
+                    return [{"id": row["candidate_id"], "by": "unknown"} for row in data]
+                
                 logger.error("Supabase list (fallback) failed: %s", resp.text)
                 return []
 
             data = resp.json()
-            return [row["candidate_id"] for row in data]
+            return [{"id": row["candidate_id"], "by": row.get("submitted_by", "unknown")} for row in data]
     except Exception as exc:
         logger.error("Supabase list error: %s", exc)
         return []
