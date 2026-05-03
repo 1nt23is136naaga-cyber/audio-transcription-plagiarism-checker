@@ -10,9 +10,9 @@
   animation: orbFloat 20s ease-in-out infinite alternate;
   pointer-events:none !important;
 }
-.ambient-orb.orb1 { width:500px;height:500px; background:#7c6ef0; top:-15%; left:-10%; animation-duration:25s; }
+.ambient-orb.orb1 { width:500px;height:500px; background:#22D3EE; top:-15%; left:-10%; animation-duration:25s; }
 .ambient-orb.orb2 { width:400px;height:400px; background:#6366f1; bottom:-10%; right:-8%; animation-duration:30s; animation-delay:-8s; }
-.ambient-orb.orb3 { width:300px;height:300px; background:#a78bfa; top:40%; left:50%; opacity:.18; animation-duration:22s; animation-delay:-4s; }
+.ambient-orb.orb3 { width:300px;height:300px; background:#7C6EF0; top:40%; left:50%; opacity:.18; animation-duration:22s; animation-delay:-4s; }
 @keyframes orbFloat {
   0%   { transform:translate(0,0) scale(1); }
   33%  { transform:translate(30px,-20px) scale(1.05); }
@@ -69,29 +69,29 @@ header, .dash-header {
   border: 1px solid rgba(255,255,255,.1) !important;
   box-shadow: 0 8px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06);
 }
-.card:hover, .dash-card:hover { border-color: rgba(124,110,240,.25) !important; }
-.card::before { background: linear-gradient(90deg, #7c6ef0, #a78bfa) !important; }
+.card:hover, .dash-card:hover { border-color: rgba(34,211,238,.25) !important; }
+.card::before { background: linear-gradient(90deg, #22D3EE, #7C6EF0) !important; }
 
 /* ══ Login overlay ═══════════════════════════════════════════════════════════ */
 #loginOverlay { background: rgba(6,8,15,.92) !important; backdrop-filter: blur(12px); }
-.login-box { box-shadow: 0 0 80px rgba(124,110,240,.2), 0 20px 60px rgba(0,0,0,.5) !important; }
-.login-box::before { background: linear-gradient(90deg, #7c6ef0, #a78bfa) !important; }
-.login-logo { background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important; box-shadow: 0 0 40px rgba(124,110,240,.4) !important; }
-.btn-login { background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important; box-shadow: 0 4px 20px rgba(124,110,240,.3); }
-.btn-login:hover { box-shadow: 0 4px 30px rgba(124,110,240,.5); }
+.login-box { box-shadow: 0 0 80px rgba(34,211,238,.2), 0 20px 60px rgba(0,0,0,.5) !important; }
+.login-box::before { background: linear-gradient(90deg, #22D3EE, #7C6EF0) !important; }
+.login-logo { background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important; box-shadow: 0 0 40px rgba(34,211,238,.4) !important; }
+.btn-login { background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important; box-shadow: 0 4px 20px rgba(34,211,238,.3); }
+.btn-login:hover { box-shadow: 0 4px 30px rgba(34,211,238,.5); }
 
 /* ══ Buttons ═════════════════════════════════════════════════════════════════ */
 .btn { border-radius: 12px; transition: all .2s ease; }
-.btn-primary { background: #7c6ef0 !important; box-shadow: 0 2px 12px rgba(124,110,240,.3); }
-.btn-primary:not(:disabled):hover { box-shadow: 0 4px 24px rgba(124,110,240,.5) !important; transform: translateY(-1px); }
-.btn-purple { background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important; box-shadow: 0 2px 12px rgba(124,110,240,.3); }
-.btn-purple:not(:disabled):hover { box-shadow: 0 4px 24px rgba(124,110,240,.5) !important; }
+.btn-primary { background: #22D3EE !important; box-shadow: 0 2px 12px rgba(34,211,238,.3); }
+.btn-primary:not(:disabled):hover { box-shadow: 0 4px 24px rgba(34,211,238,.5) !important; transform: translateY(-1px); }
+.btn-purple { background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important; box-shadow: 0 2px 12px rgba(34,211,238,.3); }
+.btn-purple:not(:disabled):hover { box-shadow: 0 4px 24px rgba(34,211,238,.5) !important; }
 .btn-ghost {
   background: rgba(255,255,255,.06) !important;
   border: 1px solid rgba(255,255,255,.1) !important;
   backdrop-filter: blur(8px);
 }
-.btn-ghost:hover { background: rgba(255,255,255,.1) !important; border-color: rgba(124,110,240,.3) !important; }
+.btn-ghost:hover { background: rgba(255,255,255,.1) !important; border-color: rgba(34,211,238,.3) !important; }
 
 /* ══ Inputs glassmorphism ════════════════════════════════════════════════════ */
 input[type="text"], input[type="password"], .login-field input, .add-emp-form input {
@@ -100,29 +100,29 @@ input[type="text"], input[type="password"], .login-field input, .add-emp-form in
   backdrop-filter: blur(8px);
 }
 input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus, .add-emp-form input:focus {
-  border-color: rgba(124,110,240,.5) !important;
-  box-shadow: 0 0 16px rgba(124,110,240,.15);
+  border-color: rgba(34,211,238,.5) !important;
+  box-shadow: 0 0 16px rgba(34,211,238,.15);
 }
 
 /* ══ Mic button — breathing halo ═════════════════════════════════════════════ */
 .mic-icon {
   width: 80px !important; height: 80px !important;
-  background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important;
-  box-shadow: 0 0 30px rgba(124,110,240,.3), 0 0 60px rgba(124,110,240,.15);
+  background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important;
+  box-shadow: 0 0 30px rgba(34,211,238,.3), 0 0 60px rgba(34,211,238,.15);
   font-size: 32px !important;
   position: relative;
 }
 .mic-icon::before, .mic-icon::after {
   content: ''; position: absolute; inset: -8px; border-radius: 50%;
-  border: 2px solid rgba(124,110,240,.3);
+  border: 2px solid rgba(34,211,238,.3);
   animation: breathe 3s ease-in-out infinite;
 }
-.mic-icon::after { inset: -18px; border-color: rgba(124,110,240,.15); animation-delay: .5s; }
+.mic-icon::after { inset: -18px; border-color: rgba(34,211,238,.15); animation-delay: .5s; }
 @keyframes breathe {
   0%,100% { transform: scale(1); opacity: .6; }
   50% { transform: scale(1.08); opacity: .2; }
 }
-.mic-icon:hover { transform: scale(1.08) !important; box-shadow: 0 0 50px rgba(124,110,240,.5) !important; }
+.mic-icon:hover { transform: scale(1.08) !important; box-shadow: 0 0 50px rgba(34,211,238,.5) !important; }
 .mic-icon.recording {
   background: linear-gradient(135deg, #ef4444, #dc2626) !important;
   box-shadow: 0 0 30px rgba(239,68,68,.4), 0 0 60px rgba(239,68,68,.2) !important;
@@ -130,7 +130,7 @@ input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus
 .mic-icon.recording::before, .mic-icon.recording::after { border-color: rgba(239,68,68,.3); }
 
 /* ══ Waveform — violet gradient ══════════════════════════════════════════════ */
-.bar { background: linear-gradient(180deg, #7c6ef0, #a78bfa) !important; border-radius: 4px !important; }
+.bar { background: linear-gradient(180deg, #22D3EE, #7C6EF0) !important; border-radius: 4px !important; }
 .recording .bar { background: linear-gradient(180deg, #ef4444, #f87171) !important; }
 
 /* ══ Record zone ═════════════════════════════════════════════════════════════ */
@@ -150,7 +150,7 @@ input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus
   border: 1px solid rgba(255,255,255,.08) !important;
   backdrop-filter: blur(8px);
 }
-.transcript-box:focus { border-color: rgba(124,110,240,.4) !important; box-shadow: 0 0 20px rgba(124,110,240,.1); }
+.transcript-box:focus { border-color: rgba(34,211,238,.4) !important; box-shadow: 0 0 20px rgba(34,211,238,.1); }
 
 /* ══ Tab row ═════════════════════════════════════════════════════════════════ */
 .tab-row { background: rgba(255,255,255,.04) !important; border: 1px solid rgba(255,255,255,.08) !important; }
@@ -158,11 +158,11 @@ input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus
 
 /* ══ Upload zone ═════════════════════════════════════════════════════════════ */
 .upload-zone { border-color: rgba(255,255,255,.1) !important; }
-.upload-zone:hover { border-color: rgba(124,110,240,.4) !important; background: rgba(124,110,240,.04) !important; }
+.upload-zone:hover { border-color: rgba(34,211,238,.4) !important; background: rgba(34,211,238,.04) !important; }
 
 /* ══ Progress steps ══════════════════════════════════════════════════════════ */
 .ps-num { background: rgba(255,255,255,.06) !important; border: 1px solid rgba(255,255,255,.12) !important; }
-.ps.active .ps-num { background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important; border-color: transparent !important; box-shadow: 0 0 16px rgba(124,110,240,.4); }
+.ps.active .ps-num { background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important; border-color: transparent !important; box-shadow: 0 0 16px rgba(34,211,238,.4); }
 .ps.done .ps-num { background: rgba(16,185,129,.15) !important; }
 .ps-line { background: rgba(255,255,255,.1) !important; }
 
@@ -172,7 +172,7 @@ input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus
   border: 1px solid rgba(255,255,255,.1) !important;
   backdrop-filter: blur(12px);
 }
-.score-num { background: linear-gradient(135deg, #7c6ef0, #a78bfa) !important; -webkit-background-clip: text !important; background-clip: text !important; }
+.score-num { background: linear-gradient(135deg, #22D3EE, #7C6EF0) !important; -webkit-background-clip: text !important; background-clip: text !important; }
 
 /* ══ Verdict banner ══════════════════════════════════════════════════════════ */
 .verdict-banner { backdrop-filter: blur(12px); }
@@ -183,17 +183,17 @@ input[type="text"]:focus, input[type="password"]:focus, .login-field input:focus
   border: 1px solid rgba(255,255,255,.08) !important;
   transition: all .2s;
 }
-.emp-row:hover { background: rgba(255,255,255,.07) !important; border-color: rgba(124,110,240,.2) !important; }
+.emp-row:hover { background: rgba(255,255,255,.07) !important; border-color: rgba(34,211,238,.2) !important; }
 
 /* ══ Role badges ═════════════════════════════════════════════════════════════ */
-.role-badge.admin { background: rgba(124,110,240,.15) !important; border: 1px solid rgba(124,110,240,.3) !important; color: #c4b5fd !important; }
+.role-badge.admin { background: rgba(34,211,238,.15) !important; border: 1px solid rgba(34,211,238,.3) !important; color: #c4b5fd !important; }
 .role-badge.hr { background: rgba(99,102,241,.15) !important; border: 1px solid rgba(99,102,241,.3) !important; color: #a5b4fc !important; }
 
 /* ══ Toast ════════════════════════════════════════════════════════════════════ */
 #toast { backdrop-filter: blur(16px) !important; }
 
 /* ══ Summary pill ════════════════════════════════════════════════════════════ */
-.summary-pill { background: rgba(255,255,255,.04) !important; border: 1px solid rgba(255,255,255,.08) !important; border-left: 3px solid #7c6ef0 !important; }
+.summary-pill { background: rgba(255,255,255,.04) !important; border: 1px solid rgba(255,255,255,.08) !important; border-left: 3px solid #22D3EE !important; }
 
 /* ══ Demo creds ══════════════════════════════════════════════════════════════ */
 .demo-creds { background: rgba(255,255,255,.04) !important; border: 1px solid rgba(255,255,255,.08) !important; }

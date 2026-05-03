@@ -18,14 +18,14 @@
       --border2:    rgba(255,255,255,.12);
       --text:       #e8ecf4;
       --muted:      rgba(255,255,255,.45);
-      --accent:     #7c6ef0;
-      --accent2:    #6366f1;
-      --accent-glow: rgba(124,110,240,.35);
+      --accent:     #22D3EE;
+      --accent2:    #06B6D4;
+      --accent-glow: rgba(34,211,238,.35);
       --green:      #10b981;
       --amber:      #f59e0b;
       --red:        #ef4444;
-      --purple:     #a78bfa;
-      --glow:       rgba(124,110,240,.2);
+      --purple:     #7C6EF0;
+      --glow:       rgba(34,211,238,.2);
       --glass:      rgba(255,255,255,.04);
       --glass-border: rgba(255,255,255,.1);
       --radius:     16px;
@@ -733,10 +733,9 @@
       <label for="loginPass">Password</label>
       <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
     </div>
-    <button class="btn-login" id="btnLogin">Sign In →</button>
-    <div class="demo-creds">
-      <p>Demo credentials:</p>
-      <code>admin / admin123 &nbsp;·&nbsp; hr1 / hr123 &nbsp;·&nbsp; hr2 / hr123</code>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-login" id="btnLogin" style="flex:1;">Sign In →</button>
+      <button class="btn-login" id="btnDemoLogin" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);box-shadow:none;">Demo Login</button>
     </div>
   </div>
 </div>
@@ -1053,6 +1052,11 @@
 
   // ── Login ──────────────────────────────────────────────────────────────────
   $('btnLogin').addEventListener('click', doLogin);
+  $('btnDemoLogin').addEventListener('click', () => {
+    $('loginUser').value = 'admin';
+    $('loginPass').value = 'admin123';
+    doLogin();
+  });
   $('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
   async function doLogin() {

@@ -51,6 +51,9 @@ app.include_router(auth_router)
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
 @app.get("/", include_in_schema=False)
+def serve_landing():
+    return FileResponse(FRONTEND_DIR / "landing.html")
+
 @app.get("/interview", include_in_schema=False)
 def serve_interview():
     return FileResponse(FRONTEND_DIR / "interview.html")

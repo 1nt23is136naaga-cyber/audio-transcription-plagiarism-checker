@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireProof — Interview Authenticity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: rgba(255,255,255,0.03);
+      --surface-hover: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.15);
+      --text: #F1F5F9;
+      --muted: rgba(255,255,255,0.5);
+      --primary: #22D3EE;
+      --secondary: #7C6EF0;
+      --success: #22C55E;
+      --danger: #EF4444;
+      --glow: rgba(34, 211, 238, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background */
+    .ambient {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at 15% 50%, rgba(124, 110, 240, 0.08), transparent 25%),
+                  radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.08), transparent 25%);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    nav {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(2, 6, 23, 0.6);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: grid; place-items: center;
+      font-size: 18px;
+      box-shadow: 0 0 15px var(--glow);
+    }
+
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #06b6d4);
+      color: #000;
+      box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 4px 30px rgba(34, 211, 238, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 120px 0;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 999px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      color: var(--primary);
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+    .hero h1 {
+      font-size: 4.5rem; font-weight: 800; letter-spacing: -2px;
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.25rem; color: var(--muted);
+      max-width: 600px; margin: 0 auto 40px;
+    }
+    .hero-ctas {
+      display: flex; gap: 16px; justify-content: center;
+    }
+
+    /* Features / The Problem */
+    .section { padding: 100px 0; }
+    .section-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .section-label {
+      font-size: 0.8rem; font-weight: 700; color: var(--secondary);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -1px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+    }
+    .card.threat { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.02); }
+
+    .card-icon {
+      font-size: 2rem; margin-bottom: 20px;
+    }
+    .card h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    .card p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Steps */
+    .step-list {
+      display: flex; flex-direction: column; gap: 24px; max-width: 800px; margin: 0 auto;
+    }
+    .step-item {
+      display: flex; gap: 24px; align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px; border-radius: 20px;
+    }
+    .step-num {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #000; font-weight: 800; font-size: 1.25rem;
+      border-radius: 12px; display: grid; place-items: center;
+    }
+    .step-content h3 { font-size: 1.5rem; margin-bottom: 8px; }
+    .step-content p { color: var(--muted); }
+
+    /* Report Mockup */
+    .mockup-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-container::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--success), var(--primary));
+    }
+    .mockup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .mockup-title { font-size: 1.5rem; font-weight: 700; }
+    .score-circle {
+      width: 100px; height: 100px; border-radius: 50%;
+      border: 8px solid var(--success);
+      display: grid; place-items: center;
+      font-size: 2rem; font-weight: 800; color: var(--success);
+    }
+    .mockup-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-bar { background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
+    .stat-fill { height: 100%; background: var(--success); width: 85%; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      text-align: center;
+      color: var(--muted);
+    }
+    .footer-brand { margin-bottom: 24px; justify-content: center; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <nav class="container">
+    <a href="/" class="brand">
+      <div class="logo-icon">🎤</div>
+      HireProof
+    </a>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#features">Features</a>
+    </div>
+    <a href="/interview" class="btn btn-primary">Access Portal &rarr;</a>
+  </nav>
+
+  <main>
+    <section class="hero container">
+      <div class="badge">
+        <div class="status-dot"></div>
+        AI-POWERED INTERVIEW AUTHENTICITY
+      </div>
+      <h1>Voices don't lie.<br><span class="text-gradient">Catch the ones that do.</span></h1>
+      <p>HireProof uses advanced voice biometrics and linguistic fingerprinting to guarantee the candidate you interviewed is the one you hire.</p>
+      <div class="hero-ctas">
+        <a href="/interview" class="btn btn-primary">Start Analysis &rarr;</a>
+        <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+      </div>
+    </section>
+
+    <section id="problem" class="section container">
+      <div class="section-header">
+        <span class="section-label">The Threat Landscape</span>
+        <h2 class="section-title">Remote Hiring is Broken</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card threat">
+          <div class="card-icon">🤖</div>
+          <h3>AI Whispering</h3>
+          <p>Candidates using real-time AI tools (like ChatGPT) via earpieces to answer technical questions seamlessly, bypassing traditional coding tests.</p>
+        </div>
+        <div class="card threat">
+          <div class="card-icon">👥</div>
+          <h3>Ghost Interviewees</h3>
+          <p>Bait-and-switch tactics where a highly skilled proxy takes the initial technical interview, but a different, less skilled candidate shows up on day one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section container">
+      <div class="section-header">
+        <span class="section-label">The Process</span>
+        <h2 class="section-title">How HireProof Works</h2>
+      </div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Record</h3>
+            <p>During the interview, the HR representative securely records key segments of the conversation—such as personal introductions and complex technical answers.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>AI Analysis</h3>
+            <p>Our deep learning models extract voice biometrics, analyze speaking styles, and run linguistic patterns against known AI-generated content signatures.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Instant Verdict</h3>
+            <p>Receive a comprehensive Authenticity Score. Instantly know if the voice matches across sessions and if the responses were human-generated.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section container">
+      <div class="section-header">
+        <span class="section-label">Core Capabilities</span>
+        <h2 class="section-title">Enterprise-Grade Verification</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🎙️</div>
+          <h3>Voice Biometrics</h3>
+          <p>Compares voice embeddings across multiple interview rounds to ensure the speaker identity remains perfectly consistent.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧠</div>
+          <h3>Linguistic Fingerprinting</h3>
+          <p>Detects shifts in vocabulary complexity, sentence structure, and tone between personal anecdotes and technical explanations.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🕵️‍♂️</div>
+          <h3>AI Plagiarism Detection</h3>
+          <p>Flags technical responses that closely mirror AI-generated output structures or web-scraped tutorial explanations.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔐</div>
+          <h3>Role-Based Access</h3>
+          <p>Secure HR portals ensure recruiters only see their own candidates, while Admins maintain full organizational oversight.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Instant Reporting</h3>
+          <p>No waiting for manual review. Get actionable insights and a detailed authenticity breakdown seconds after the interview ends.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧩</div>
+          <h3>Chrome Extension</h3>
+          <p>Seamlessly integrate with Google Meet, Zoom, or Teams via our browser extension to capture audio directly from the tab.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-header">
+        <span class="section-label">Live Preview</span>
+        <h2 class="section-title">Clear, Actionable Intelligence</h2>
+      </div>
+      <div class="mockup-container">
+        <div class="mockup-header">
+          <div>
+            <h3 class="mockup-title">Candidate Report: Jane Doe</h3>
+            <p style="color: var(--muted)">Software Engineer Interview</p>
+          </div>
+          <div class="score-circle">87</div>
+        </div>
+        <div class="mockup-stats">
+          <div>
+            <div style="display:flex; justify-content:space-between">
+              <span>Voice Consistency</span>
+              <span style="color:var(--success)">High Match</span>
+            </div>
+            <div class="stat-bar"><div class="stat-fill"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between">
+              <span>Human Likelihood</span>
+              <span style="color:var(--success)">Genuine</span>
+            </div>
+            <div class="stat-bar"><div class="stat-fill" style="width: 92%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <a href="/" class="brand footer-brand">
+        <div class="logo-icon" style="width: 24px; height: 24px; font-size: 12px;">🎤</div>
+        HireProof
+      </a>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="mailto:support@echoinsight.com">Contact Support</a>
+      </div>
+      <p>&copy; 2026 HireProof. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
